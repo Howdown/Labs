@@ -4,65 +4,51 @@
 
     public class Program
     {
+        public static double Create(int namberLetter)
+        {
+            var letter = new char[] { 'a', 'b', 'c' };
+            var nambers = 0.0;
+            var rations = Console.ReadLine();
+            while (double.TryParse(rations, out nambers) == false)
+            {
+                Console.WriteLine("все аргументы должны быть числами, введите число");
+                Console.Write(letter[namberLetter] + " = ");
+                rations = Console.ReadLine();
+            }
+
+            return nambers;
+        }
+
         public static void Main()
         {
-            var ration1 = 0.0;
-            var ration2 = 0.0;
-            var ration3 = 0.0;
             Console.WriteLine("введите коэфиценты квадратного уравнения:");
             Console.Write("a = ");
-            var a = Console.ReadLine();
+            var a = Create(0);
             Console.WriteLine();
-                if (a != null && double.TryParse(a, out ration1))
-                {
-                }
-                else
-                {
-                    Console.WriteLine("все аргументы должны быть числами, введите число");
-                    Environment.Exit(0);
-                }
-
             Console.Write("b = ");
-            var b = Console.ReadLine();
+            var b = Create(1);
             Console.WriteLine();
-                if (b != null && double.TryParse(b, out ration2))
-                {
-                }
-                else
-                {
-                    Console.WriteLine("все аргументы должны быть числами, введите число");
-                    Environment.Exit(0);
-                }
-
             Console.Write("с = ");
-            var c = Console.ReadLine();
+            var c = Create(2);
             Console.WriteLine();
-                if (c != null && double.TryParse(c, out ration3))
-                {
-                }
-                else
-                {
-                    Console.WriteLine("все аргументы должны быть числами, введите число");
-                    Environment.Exit(0);
-                }
 
-            Console.WriteLine("{0}x^2 + ({1}x) + ({2}) = 0", ration1, ration2, ration3);
-            var d = Math.Pow(ration2, 2) - (4 * (ration1 * ration3));
+            Console.WriteLine("{0}x^2 + ({1}x) + ({2}) = 0", a, b, c);
+            var d = Math.Pow(b, 2) - (4 * (a * c));
             if (d < 0)
             {
                 Console.WriteLine("Нет корней");
             }
             else if (Math.Abs(d) < 0.0000001)
             {
-               var x1 = (ration2 * (-1)) / (2 * ration1);
+                var x1 = (b * (-1)) / (2 * a);
                 Console.WriteLine("квадратное уравнение имеет один корень = {0:#.###}", x1);
             }
             else
             {
                 Console.WriteLine("квадратное уравнение имеет два корня :");
-                var x1 = ((ration2 * (-1.0)) + Math.Pow(d, 1.0 / 2.0)) / (2.0 * ration1);
+                var x1 = ((b * (-1.0)) + Math.Pow(d, 1.0 / 2.0)) / (2.0 * a);
                 Console.WriteLine("первый корень = {0:0.###}", x1);
-                var x2 = ((ration2 * (-1.0)) - Math.Pow(d, 1.0 / 2.0)) / (2.0 * ration1);
+                var x2 = ((b * (-1.0)) - Math.Pow(d, 1.0 / 2.0)) / (2.0 * a);
                 Console.WriteLine("второй корень = {0:0.###}", x2);
             }
         }
