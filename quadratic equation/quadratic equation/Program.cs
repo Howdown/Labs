@@ -4,32 +4,31 @@
 
     public class Program
     {
-        public static double Create(int namberLetter)
+        public static double ReadNumberFromConsole()
         {
-            var letter = new char[] { 'a', 'b', 'c' };
-            var nambers = 0.0;
-            var rations = Console.ReadLine();
-            while (double.TryParse(rations, out nambers) == false)
+            var number = 0.0;
+            var inputString = Console.ReadLine();
+            while (!double.TryParse(inputString, out number))
             {
-                Console.WriteLine("все аргументы должны быть числами, введите число");
-                Console.Write(letter[namberLetter] + " = ");
-                rations = Console.ReadLine();
+                Console.WriteLine("все аргументы должны быть числами");
+                Console.Write("введите число :");
+                inputString = Console.ReadLine();
             }
 
-            return nambers;
+            return number;
         }
 
         public static void Main()
         {
             Console.WriteLine("введите коэфиценты квадратного уравнения:");
             Console.Write("a = ");
-            var a = Create(0);
+            var a = ReadNumberFromConsole();
             Console.WriteLine();
             Console.Write("b = ");
-            var b = Create(1);
+            var b = ReadNumberFromConsole();
             Console.WriteLine();
             Console.Write("с = ");
-            var c = Create(2);
+            var c = ReadNumberFromConsole();
             Console.WriteLine();
 
             Console.WriteLine("{0}x^2 + ({1}x) + ({2}) = 0", a, b, c);
