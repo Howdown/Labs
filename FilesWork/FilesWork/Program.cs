@@ -7,22 +7,13 @@
 
     public class Program
     {
-        public static int CoutUniqueWords(string workString)
+        public static List<string> CoutUniqueWords(string workString)
         {
-            var count = 0;
             var arrayWords = workString.Split(
-                new char[] { ' ', ',', '.', '-', '_', '/', ':', ';', '<', '>', '\n', '\r' },
+                new string[] { " - ", " ", ",", ".", "_", "/", ":", ";", "<", ">", "\n", "\r" },
                 StringSplitOptions.RemoveEmptyEntries);
-            IEnumerable<string> uniqueWords = arrayWords.Distinct();
-            Console.Write("\n Уникальные слова : ");
-            foreach (var outputWords in uniqueWords)
-            {
-                Console.Write(outputWords + "  ");
-                count++;
-            }
-
-            Console.WriteLine();
-            return count;
+            var uniqueWords = arrayWords.Distinct().ToList();
+            return uniqueWords;
         }
 
         public static void Main()
@@ -30,9 +21,17 @@
             var inputFile1 = File.ReadAllText("fileString1.txt");
             var inputFile2 = File.ReadAllText("fileString2.txt");
             var inputFile3 = File.ReadAllText("fileString3.txt");
-            string commonString = (inputFile1 + inputFile2 + inputFile3).ToLower();
+            var commonString = (inputFile1 + inputFile2 + inputFile3).ToLower();
             Console.WriteLine(commonString);
-            Console.WriteLine("Количество уникальных слов в файлах = " + CoutUniqueWords(commonString));
+            Console.Write("\n Уникальные слова : ");
+            var sortingWords = CoutUniqueWords(commonString);
+            foreach (var outputWords in sortingWords)
+            {
+                Console.Write(outputWords + "  ");
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Количество уникальных слов в файлах = " + sortingWords.Count);
         }
     }
 }
