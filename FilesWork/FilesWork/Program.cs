@@ -3,66 +3,36 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
 
     public class Program
     {
-        public static string ReadTextFromFile(StreamReader readFile)
+        public static int CoutUniqueWords(string workString)
         {
-            var functionString = string.Empty;
-            while (!readFile.EndOfStream)
-            {
-                functionString += readFile.ReadLine() + " ";
-            }
-
-            return functionString;
-        }
-
-        public static int StringCheck(string workString)
-        {
+            var count = 0;
             var arrayWords = workString.Split(
-                new char[] { ' ', ',', '.', '-', '_', '/', ':', ';', '<', '>' },
+                new char[] { ' ', ',', '.', '-', '_', '/', ':', ';', '<', '>', '\n', '\r' },
                 StringSplitOptions.RemoveEmptyEntries);
-            var listWords = new List<string>();
-            for (var i = 0; i < arrayWords.Length; i++)
-            {
-                var wordCheck = arrayWords[i];
-                for (var j = i + 1; j < arrayWords.Length; j++)
-                {
-                    if (wordCheck.ToLower() == arrayWords[j].ToLower())
-                    {
-                        arrayWords[j] = " "; 
-                    }
-                }
-            }
-
-            foreach (var resultWord in arrayWords)
-            {
-                if (resultWord != " ")
-                {
-                    listWords.Add(resultWord);
-                }
-            }
-
+            IEnumerable<string> uniqueWords = arrayWords.Distinct();
             Console.Write("\n Уникальные слова : ");
-            foreach (var outputWords in listWords)
+            foreach (var outputWords in uniqueWords)
             {
                 Console.Write(outputWords + "  ");
+                count++;
             }
 
             Console.WriteLine();
-            return listWords.Count;
+            return count;
         }
 
         public static void Main()
         {
-            var inputFile1 = new StreamReader("fileString1.txt");
-            var commonString = ReadTextFromFile(inputFile1);
-            var inputFile2 = new StreamReader("fileString2.txt");
-            commonString += ReadTextFromFile(inputFile2);
-            var inputFile3 = new StreamReader("fileString3.txt");
-            commonString += ReadTextFromFile(inputFile3);
+            var inputFile1 = File.ReadAllText("fileString1.txt");
+            var inputFile2 = File.ReadAllText("fileString2.txt");
+            var inputFile3 = File.ReadAllText("fileString3.txt");
+            string commonString = (inputFile1 + inputFile2 + inputFile3).ToLower();
             Console.WriteLine(commonString);
-            Console.WriteLine("Количество уникальных слов в файлах = " + StringCheck(commonString));
+            Console.WriteLine("Количество уникальных слов в файлах = " + CoutUniqueWords(commonString));
         }
     }
 }
