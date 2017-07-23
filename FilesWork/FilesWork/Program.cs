@@ -18,9 +18,9 @@
 
         public static void Main()
         {
-            var inputFile1 = File.ReadAllText("fileString1.txt");
-            var inputFile2 = File.ReadAllText("fileString2.txt");
-            var inputFile3 = File.ReadAllText("fileString3.txt");
+            var inputFile1 = File.ReadAllText("data/fileString1.txt");
+            var inputFile2 = File.ReadAllText("data/fileString2.txt");
+            var inputFile3 = File.ReadAllText("data/fileString3.txt");
             var commonString = (inputFile1 + inputFile2 + inputFile3).ToLower();
             Console.WriteLine(commonString);
             Console.Write("\n Уникальные слова : ");
