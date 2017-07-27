@@ -9,7 +9,9 @@
         {
             Console.WriteLine("ВВедите численное выражение типа a + b = c");
             var inputExpression = Console.ReadLine();
-            var regex = @"[-]?\d+[ ]*[*,-,+,/][ ]*\d+[ ]*[=]([ ]*([-]{0,1}))\d+";
+            var number = @"([-]?\d+([,]d+)?)";
+            var space = @"\s*";
+            var regex = $"{number}{space}[*-+/]{space}{number}{space}[=]{space}{number}";
             if (inputExpression != null && Regex.IsMatch(inputExpression, regex))
             {
                 Console.WriteLine("Выражение введено верно");
