@@ -1,0 +1,6 @@
+Salmon
+Snow
+Burlywood
+Green
+Gainsboro
+DarkRed
