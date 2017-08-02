@@ -53,7 +53,7 @@
                     {
                         var numberInt = 0;
                         numberInt = Convert.ToInt32(number.ToString());
-                        convertNumber += numberInt.ToString("X");
+                        convertNumber += numberInt.ToString("X2");
                     }
 
                     adjustmentColors.Add(convertNumber);
