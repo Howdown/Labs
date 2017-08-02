@@ -40,6 +40,7 @@ MediumSlateBlue #7B68EE
 LightSlateBlue #8470FF
 MediumBlue #0000CD
 RoyalBlue #4169E1
+Blue #0000FF
 DodgerBlue #1E90FF
 DeepSkyBlue #00BFFF
 SkyBlue #87CEEB

@@ -19,19 +19,16 @@
             var foundColors = new List<string>();
             foreach (var match in regexForRgb.Matches(findSource))
             {
-                Console.WriteLine(match);
                 foundColors.Add(match.ToString());
             }
 
             foreach (var match in regexForHexShort.Matches(findSource))
             {
-                Console.WriteLine(match);
                 foundColors.Add(match.ToString());
             }
 
             foreach (var match in regexForHexLong.Matches(findSource))
             {
-                Console.WriteLine(match);
                 foundColors.Add(match.ToString());
             }
 
@@ -90,19 +87,20 @@
                     {
                         var alphabeticForm = regexAlphabetic.Match(colorFromColors).ToString();
                         usedColors.Add(alphabeticForm);
-                        var regexColor = new Regex(sourseView[i]);
-                        sourceContent = regexColor.Replace(sourceContent, alphabeticForm.ToString());
+                        sourceContent = sourceContent.Replace(sourseView[i], alphabeticForm);
                     }
                 }
             }
 
+            var path = @"D:\labs\Regex\Regex\data\source.txt";
+            File.WriteAllText(path, sourceContent);
             return usedColors;
         }
 
         public static void UsedColorsInNewFiles(List<string> colorsUsed)
         {
-            var path = @"D:\labs\Regex\Regex\data\allUsedColors.txt";
-                File.WriteAllLines(path, colorsUsed);
+            var path = @"D:\labs\Regex\Regex\data\AllUsedColors.txt";
+            File.WriteAllLines(path, colorsUsed);
         }
 
         public static void Main()
@@ -113,48 +111,6 @@
             var reducedForm = AdjustmentFormats(listColours);
             var colorsPreOwned = Replacement(listColours, reducedForm, inputColors, inputFileSource).Distinct();
             UsedColorsInNewFiles(colorsPreOwned.ToList());
-
-
-            //var usedColors = CompletedReplacements(listColours, inputColors, inputFileSource);
         }
-        /*
-        public static List<string> FindColorsHexLong(string findColorsLong)
-        {
-            var regexForHex = new Regex(@"#\w{6}");
-            var dinosaurs = new List<string>();
-            foreach (var match in regexForHex.Matches(findColorsLong))
-            {
-                Console.WriteLine(match);
-                dinosaurs.Add(match.ToString());
-            }
-
-            return dinosaurs;
-        }
-
-        public static List<string> CompletedReplacements(List<string> sourceColorsHexLong, string[] colors, string sourceText)
-        {
-            var regexAlphabetic = new Regex(@"^\S*");
-            var completed = new List<string>();
-            var replacedString = string.Empty;
-            foreach (var color in sourceColorsHexLong)
-            {
-                foreach (var colorFromColors in colors)
-                {
-                    if (colorFromColors.Contains(color))
-                    {
-                        var alphabeticForm = regexAlphabetic.Match(colorFromColors);
-                        completed.Add(alphabeticForm.ToString());
-                        var regexColor = new Regex(color);
-                        replacedString = regexColor.Replace(sourceText, alphabeticForm.ToString());
-                        sourceText = replacedString;
-                    }
-                }
-            }
-
-            var path = @"D:\labs\Regex\Regex\data\source.txt";
-            Console.WriteLine(path);
-            File.WriteAllText(path, replacedString);
-            return completed;
-        }*/
     }
 }
