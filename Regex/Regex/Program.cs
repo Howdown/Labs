@@ -12,19 +12,21 @@
         {
             var inputFileSource = File.ReadAllText("data/source.txt");
             var inputColors = File.ReadAllLines("data/colors.txt");
-            var allUsedColors = FindColors(inputFileSource, inputColors).Distinct();
-            SaveUsedColors(allUsedColors.ToList());
+            var pathForUsedColors = @"..\\..\\data\AllUsedColors.txt";
+            var pathSource = @"..\\..\\data\source.txt";
+            var allUsedColors = FindColors(inputFileSource, inputColors, pathSource).Distinct();
+            SaveUsedColors(allUsedColors.ToList(), pathForUsedColors);
         }
 
-        public static void SaveUsedColors(List<string> colorsUsed)
+        public static void SaveUsedColors(List<string> colorsUsed, string path)
         {
-            var path = @"D:\labs\Regex\Regex\data\AllUsedColors.txt";
             File.WriteAllLines(path, colorsUsed);
         }
 
-        public static List<string> FindColors(string findSource, string[] textColors)
+        public static List<string> FindColors(string findSource, string[] textColors, string path)
         {
             var usedColors = new List<string>();
+            var colorsName = DecomposeColors(textColors);
             var regexAllColors = @"(rgb[(]\d{1,3},\s*\d{1,3},\s*\d{1,3}[)])|(#\w{3}\b)|(#\w{6}\b)";
             var resultText = Regex.Replace(
                 findSource,
@@ -32,48 +34,67 @@
                 match =>
                     {
                         var colorFromSource = match.ToString();
-                        var provenColor = string.Empty;
-                        var nameColor = string.Empty;
+                        string colorName;
                         if (colorFromSource.Length > 8)
                         {
-                            var regexNamber = new Regex(@"\d{1,3}");
-                            foreach (var number in regexNamber.Matches(colorFromSource))
-                            {
-                                var numberInt = 0;
-                                numberInt = Convert.ToInt32(number.ToString());
-                                nameColor += numberInt.ToString("X2");
-                            }
+                            colorName = ConvertRgb(colorFromSource);
                         }
                         else if (colorFromSource.Length == 4)
                         {
-                            nameColor = colorFromSource;
-                            for (var i = colorFromSource.Length; i > 1; i -= 1)
-                            {
-                                var elementDouble = colorFromSource[i - 1];
-                                nameColor = nameColor.Insert(i, elementDouble.ToString());
-                            }
+                            colorName = ConvertHexShort(colorFromSource);
                         }
                         else
                         {
-                            nameColor = colorFromSource;
+                            colorName = colorFromSource;
                         }
 
-                        var regexAlphabetic = new Regex(@"^\S*");
-                        foreach (var color in textColors)
+                        if (colorsName.ContainsKey(colorName))
                         {
-                            if (color.Contains(nameColor))
-                            {
-                                var colorName = regexAlphabetic.Match(color).ToString();
-                                colorFromSource = colorName;
-                                usedColors.Add(colorFromSource);
-                            }
+                            var name = colorsName[colorName];
+                            colorFromSource = name;
+                            usedColors.Add(colorFromSource);
                         }
 
                         return colorFromSource;
                     });
-            var path = @"D:\labs\Regex\Regex\data\source.txt";
             File.WriteAllText(path, resultText);
             return usedColors;
+        }
+
+        public static Dictionary<string, string> DecomposeColors(string[] textFromColors)
+        {
+            var colors = new Dictionary<string, string>();
+            foreach (var color in textFromColors)
+            {
+                var colorName = color.Split(new[] { ' ', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+                colors.Add(colorName[1], colorName[0]);
+            }
+
+            return colors;
+        }
+
+        public static string ConvertRgb(string rgbColors)
+        {
+            var name = "#";
+            var regexNamber = new Regex(@"\d{1,3}");
+            foreach (var number in regexNamber.Matches(rgbColors))
+            {
+                var numberInt = 0;
+                numberInt = Convert.ToInt32(number.ToString());
+                name += numberInt.ToString("X2");
+            }
+
+            return name;
+        }
+
+        public static string ConvertHexShort(string hexShortColors)
+        {
+            for (var i = hexShortColors.Length; i > 1; i -= 1)
+            {
+                var elementDouble = hexShortColors[i - 1];
+                hexShortColors = hexShortColors.Insert(i, elementDouble.ToString());
+            }
+            return hexShortColors;
         }
     }
 }
