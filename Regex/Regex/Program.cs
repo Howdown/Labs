@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.IO;
     using System.Linq;
     using System.Text.RegularExpressions;
@@ -12,8 +13,8 @@
         {
             var inputFileSource = File.ReadAllText("data/source.txt");
             var inputColors = File.ReadAllLines("data/colors.txt");
-            var pathForUsedColors = @"..\\..\\data\AllUsedColors.txt";
-            var pathSource = @"..\\..\\data\source.txt";
+            var pathForUsedColors = ConfigurationManager.AppSettings["pathToAllUsedColors"];
+            var pathSource = ConfigurationManager.AppSettings["pathToSource"];
             var allUsedColors = FindColors(inputFileSource, inputColors, pathSource).Distinct();
             SaveUsedColors(allUsedColors.ToList(), pathForUsedColors);
         }
@@ -79,8 +80,7 @@
             var regexNamber = new Regex(@"\d{1,3}");
             foreach (var number in regexNamber.Matches(rgbColors))
             {
-                var numberInt = 0;
-                numberInt = Convert.ToInt32(number.ToString());
+                var numberInt = Convert.ToInt32(number.ToString());
                 name += numberInt.ToString("X2");
             }
 
