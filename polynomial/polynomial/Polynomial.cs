@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
     public class Polynomial
@@ -55,6 +56,27 @@
                 }
             }
 
+            return result;
+        }
+
+        public static string operator -(Polynomial polonomOfMinus)
+        {
+            var result = "-(";
+            for (var i = polonomOfMinus.coefficients.Count - 1; i >= 0; i--)
+            {
+                    if (i > 1)
+                    {
+                        result += "(" + (polonomOfMinus.coefficients[i] * (-1)) + "x^" + i + ") + ";
+                    }
+                    else if (i == 1)
+                    {
+                        result += "(" + (polonomOfMinus.coefficients[i] * (-1)) + "x) +";
+                    }
+                    else
+                    {
+                        result += "(" + (polonomOfMinus.coefficients[i] * (-1)) + ")";
+                    }
+                }
             return result;
         }
 
@@ -129,54 +151,68 @@
             return result;
         }
 
-        public void Show()
+        public string BuildPolynomial()
         {
+            var representationPolynomial = string.Empty;
             for (var i = this.coefficients.Count - 1; i >= 0; i--)
             {
                 if (i > 1)
                 {
-                    Console.Write("(" + this.coefficients[i] + "x^" + i + ")" + " + ");
+                    representationPolynomial += "(" + this.coefficients[i] + "x^" + i + ") + ";
                 }
                 else if (i == 1)
                 {
-                    Console.Write("(" + this.coefficients[i] + "x) + ");
+                    representationPolynomial += "(" + this.coefficients[i] + "x) +";
                 }
                 else
                 {
-                    Console.Write("(" + this.coefficients[i] + ")");
+                    representationPolynomial += "(" + this.coefficients[i] + ")";
                 }
             }
 
-            Console.WriteLine();
+            return representationPolynomial;
         }
 
-        public void ComparisonPolynomials(Polynomial secondPolynomial)
-        {
-            Console.WriteLine(
-                this.coefficients != secondPolynomial.coefficients ? "многочлены не равны" : "многочлены равны");
-        }
 
-        public double CalculationPolynomials(double powerFactor)
+        public bool ComparisonPolynomials(Polynomial secondPolynomial)
         {
-            return this.coefficients.Select((t, i) => (int)Math.Pow(powerFactor, i) * t).Sum();
-        }
-
-        public bool FindingRoots(double borderLeft, double borderRight, double epsilon, out double roots)
-        {
-            var solvability = true;
-            var coefficientsPolynom = new Polynomial { coefficients = this.coefficients };
-            var halfInterval = (borderLeft + borderRight) / 2;
-            if ((coefficientsPolynom.CalculationPolynomials(borderLeft)
-                 * coefficientsPolynom.CalculationPolynomials(borderRight)) > 0)
+            var comparison = true;
+            if (this.coefficients.Count != secondPolynomial.coefficients.Count)
             {
-                solvability = false;
+                comparison = false;
             }
             else
             {
+                for (var i = 0; i < this.coefficients.Count; i++)
+                {
+                    if (Math.Abs(this.coefficients[i] - secondPolynomial.coefficients[i]) > 0)
+                    {
+                        comparison = false;
+                        break;
+                    }
+                }
+            }
+
+            return comparison;
+        }
+
+        public double CalculatePolynomials(double powerFactor)
+        {
+            return this.coefficients.Select((t, i) => (double)Math.Pow(powerFactor, i) * t).Sum();
+        }
+
+        public double? FindRoots(double borderLeft, double borderRight, double epsilon)
+        {
+            var coefficientsPolynom = new Polynomial(this.coefficients);
+            double? roots = null;
+            var halfInterval = (borderLeft + borderRight) / 2;
+            if ((coefficientsPolynom.CalculatePolynomials(borderLeft)
+                 * coefficientsPolynom.CalculatePolynomials(borderRight)) < 0)
+            {
                 while (Math.Abs(borderRight - borderLeft) > epsilon)
                 {
-                    if ((coefficientsPolynom.CalculationPolynomials(borderLeft)
-                         * coefficientsPolynom.CalculationPolynomials(halfInterval)) > 0)
+                    if ((coefficientsPolynom.CalculatePolynomials(borderLeft)
+                         * coefficientsPolynom.CalculatePolynomials(halfInterval)) > 0)
                     {
                         borderLeft = Math.Round(halfInterval, 5);
                     }
@@ -188,16 +224,17 @@
                     var sum = Math.Abs(Math.Round(borderRight - borderLeft, 5));
                     halfInterval = Math.Round(borderLeft + borderRight, 5) / 2;
                 }
+
+                roots = halfInterval;
             }
 
-            roots = halfInterval;
-            return solvability;
+            return roots;
         }
 
-        public List<double> CalculationPolynomialOfSeveralVariables(List<double> variableValue)
+        public List<double> CalculatePolynomialOfSeveralVariables(List<double> variableValue)
         {
-            var coefficientsPolynom = new Polynomial { coefficients = this.coefficients };
-            return variableValue.Select(value => coefficientsPolynom.CalculationPolynomials(value)).ToList();
+            var coefficientsPolynom = new Polynomial(this.coefficients);
+            return variableValue.Select(value => coefficientsPolynom.CalculatePolynomials(value)).ToList();
         }
     }
 }
