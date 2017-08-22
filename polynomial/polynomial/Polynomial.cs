@@ -1,0 +1,203 @@
+﻿namespace Polynomial
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public class Polynomial
+    {
+        private List<double> coefficients;
+
+        public Polynomial(List<double> index)
+        {
+            this.coefficients = index;
+        }
+
+        public Polynomial()
+        {
+            this.coefficients = new List<double>();
+        }
+
+        public static Polynomial operator +(Polynomial firstPolynomial, Polynomial secondPolynomial)
+        {
+            var result = new Polynomial();
+            double summ;
+            if (firstPolynomial.coefficients.Count != secondPolynomial.coefficients.Count)
+            {
+                var longLength = firstPolynomial.coefficients.Count < secondPolynomial.coefficients.Count
+                                     ? secondPolynomial.coefficients.Count
+                                     : firstPolynomial.coefficients.Count;
+                var shortLength = firstPolynomial.coefficients.Count > secondPolynomial.coefficients.Count
+                                      ? secondPolynomial.coefficients.Count
+                                      : firstPolynomial.coefficients.Count;
+                for (var i = 0; i < longLength; i++)
+                {
+                    if (i < shortLength)
+                    {
+                        summ = firstPolynomial.coefficients[i] + secondPolynomial.coefficients[i];
+                        result.coefficients.Add(summ);
+                    }
+                    else
+                    {
+                        result.coefficients.Add(
+                            firstPolynomial.coefficients.Count > secondPolynomial.coefficients.Count
+                                ? firstPolynomial.coefficients[i]
+                                : secondPolynomial.coefficients[i]);
+                    }
+                }
+            }
+            else
+            {
+                for (var i = 0; i < firstPolynomial.coefficients.Count; i++)
+                {
+                    summ = firstPolynomial.coefficients[i] + secondPolynomial.coefficients[i];
+                    result.coefficients.Add(summ);
+                }
+            }
+
+            return result;
+        }
+
+        public static Polynomial operator -(Polynomial firstPolynomial, Polynomial secondPolynomial)
+        {
+            var result = new Polynomial();
+            double difference;
+            if (firstPolynomial.coefficients.Count != secondPolynomial.coefficients.Count)
+            {
+                var longLength = firstPolynomial.coefficients.Count < secondPolynomial.coefficients.Count
+                                     ? secondPolynomial.coefficients.Count
+                                     : firstPolynomial.coefficients.Count;
+                var shortLength = firstPolynomial.coefficients.Count > secondPolynomial.coefficients.Count
+                                      ? secondPolynomial.coefficients.Count
+                                      : firstPolynomial.coefficients.Count;
+                for (var i = 0; i < longLength; i++)
+                {
+                    if (i < shortLength)
+                    {
+                        difference = firstPolynomial.coefficients[i] - secondPolynomial.coefficients[i];
+                        result.coefficients.Add(difference);
+                    }
+                    else
+                    {
+                        result.coefficients.Add(
+                            firstPolynomial.coefficients.Count > secondPolynomial.coefficients.Count
+                                ? firstPolynomial.coefficients[i]
+                                : -secondPolynomial.coefficients[i]);
+                    }
+                }
+            }
+            else
+            {
+                for (var i = 0; i < firstPolynomial.coefficients.Count; i++)
+                {
+                    difference = firstPolynomial.coefficients[i] - secondPolynomial.coefficients[i];
+                    result.coefficients.Add(difference);
+                }
+            }
+
+            return result;
+        }
+
+        public static Polynomial operator *(Polynomial firstPolynomial, Polynomial secondPolynomial)
+        {
+            var result = new Polynomial();
+            var corrector = 0;
+            var summ = 0.0;
+            var values = new double[firstPolynomial.coefficients.Count,
+                firstPolynomial.coefficients.Count + secondPolynomial.coefficients.Count - 1];
+            for (var i = 0; i < firstPolynomial.coefficients.Count; i++)
+            {
+                for (var j = 0; j < secondPolynomial.coefficients.Count; j++)
+                {
+                    values[i, j + corrector] = firstPolynomial.coefficients[i] * secondPolynomial.coefficients[j];
+                }
+
+                corrector++;
+            }
+
+            for (var j = 0; j < (firstPolynomial.coefficients.Count + secondPolynomial.coefficients.Count - 1); j++)
+            {
+                for (var i = 0; i < firstPolynomial.coefficients.Count; i++)
+                {
+                    summ += values[i, j];
+                }
+
+                result.coefficients.Add(summ);
+                summ = 0;
+            }
+
+            return result;
+        }
+
+        public void Show()
+        {
+            for (var i = this.coefficients.Count - 1; i >= 0; i--)
+            {
+                if (i > 1)
+                {
+                    Console.Write("(" + this.coefficients[i] + "x^" + i + ")" + " + ");
+                }
+                else if (i == 1)
+                {
+                    Console.Write("(" + this.coefficients[i] + "x) + ");
+                }
+                else
+                {
+                    Console.Write("(" + this.coefficients[i] + ")");
+                }
+            }
+
+            Console.WriteLine();
+        }
+
+        public void ComparisonPolynomials(Polynomial secondPolynomial)
+        {
+            Console.WriteLine(
+                this.coefficients != secondPolynomial.coefficients ? "многочлены не равны" : "многочлены равны");
+        }
+
+        public double CalculationPolynomials(double powerFactor)
+        {
+            return this.coefficients.Select((t, i) => (int)Math.Pow(powerFactor, i) * t).Sum();
+        }
+
+        public bool FindingRoots(double borderLeft, double borderRight, double epsilon, out double roots)
+        {
+            var solvability = true;
+            var coefficientsPolynom = new Polynomial { coefficients = this.coefficients };
+            var halfInterval = (borderLeft + borderRight) / 2;
+            if ((coefficientsPolynom.CalculationPolynomials(borderLeft)
+                 * coefficientsPolynom.CalculationPolynomials(borderRight)) > 0)
+            {
+                solvability = false;
+            }
+            else
+            {
+                while (Math.Abs(borderRight - borderLeft) > epsilon)
+                {
+                    if ((coefficientsPolynom.CalculationPolynomials(borderLeft)
+                         * coefficientsPolynom.CalculationPolynomials(halfInterval)) > 0)
+                    {
+                        borderLeft = Math.Round(halfInterval, 5);
+                    }
+                    else
+                    {
+                        borderRight = Math.Round(halfInterval, 5);
+                    }
+
+                    var sum = Math.Abs(Math.Round(borderRight - borderLeft, 5));
+                    halfInterval = Math.Round(borderLeft + borderRight, 5) / 2;
+                }
+            }
+
+            roots = halfInterval;
+            return solvability;
+        }
+
+        public List<double> CalculationPolynomialOfSeveralVariables(List<double> variableValue)
+        {
+            var coefficientsPolynom = new Polynomial { coefficients = this.coefficients };
+            return variableValue.Select(value => coefficientsPolynom.CalculationPolynomials(value)).ToList();
+        }
+    }
+}
