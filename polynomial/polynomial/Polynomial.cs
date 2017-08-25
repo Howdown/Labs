@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using System.Runtime.CompilerServices;
 
     public class Polynomial
     {
@@ -59,25 +60,15 @@
             return result;
         }
 
-        public static string operator -(Polynomial polonomOfMinus)
+        public static Polynomial operator -(Polynomial polonomOfMinus)
         {
-            var result = "-(";
-            for (var i = polonomOfMinus.coefficients.Count - 1; i >= 0; i--)
+            var coefficientsOfMinus = new Polynomial();
+            for (var i = 0; i < polonomOfMinus.coefficients.Count; i++)
             {
-                    if (i > 1)
-                    {
-                        result += "(" + (polonomOfMinus.coefficients[i] * (-1)) + "x^" + i + ") + ";
-                    }
-                    else if (i == 1)
-                    {
-                        result += "(" + (polonomOfMinus.coefficients[i] * (-1)) + "x) +";
-                    }
-                    else
-                    {
-                        result += "(" + (polonomOfMinus.coefficients[i] * (-1)) + ")";
-                    }
-                }
-            return result;
+                coefficientsOfMinus.coefficients.Add(polonomOfMinus.coefficients[i] * (-1));
+            }
+
+            return coefficientsOfMinus;
         }
 
         public static Polynomial operator -(Polynomial firstPolynomial, Polynomial secondPolynomial)
@@ -151,6 +142,32 @@
             return result;
         }
 
+        public int ObtainDegreePolynomial()
+        {
+            var degreePolynomial = 0;
+            for (var i = this.coefficients.Count - 1; i >= 0; i--)
+            {
+                if (Math.Abs(this.coefficients[i]) > 0)
+                {
+                    degreePolynomial = i;
+                    break;
+                }
+            }
+
+            return degreePolynomial;
+        }
+
+
+        public double? ObtainCoefficient(int degree)
+        {
+            double? coefficientOfdegree = null;
+            if (degree < this.coefficients.Count && degree >= 0)
+            {
+                coefficientOfdegree = this.coefficients[degree];
+            }
+            return coefficientOfdegree;
+        }
+
         public string BuildPolynomial()
         {
             var representationPolynomial = string.Empty;
@@ -174,26 +191,9 @@
         }
 
 
-        public bool ComparisonPolynomials(Polynomial secondPolynomial)
+        public bool ComparePolynomials(Polynomial secondPolynomial)
         {
-            var comparison = true;
-            if (this.coefficients.Count != secondPolynomial.coefficients.Count)
-            {
-                comparison = false;
-            }
-            else
-            {
-                for (var i = 0; i < this.coefficients.Count; i++)
-                {
-                    if (Math.Abs(this.coefficients[i] - secondPolynomial.coefficients[i]) > 0)
-                    {
-                        comparison = false;
-                        break;
-                    }
-                }
-            }
-
-            return comparison;
+            return this.coefficients.SequenceEqual(secondPolynomial.coefficients);
         }
 
         public double CalculatePolynomials(double powerFactor)
@@ -204,7 +204,7 @@
         public double? FindRoots(double borderLeft, double borderRight, double epsilon)
         {
             var coefficientsPolynom = new Polynomial(this.coefficients);
-            double? roots = null;
+            double? root = null;
             var halfInterval = (borderLeft + borderRight) / 2;
             if ((coefficientsPolynom.CalculatePolynomials(borderLeft)
                  * coefficientsPolynom.CalculatePolynomials(borderRight)) < 0)
@@ -225,10 +225,10 @@
                     halfInterval = Math.Round(borderLeft + borderRight, 5) / 2;
                 }
 
-                roots = halfInterval;
+                root = halfInterval;
             }
 
-            return roots;
+            return root;
         }
 
         public List<double> CalculatePolynomialOfSeveralVariables(List<double> variableValue)

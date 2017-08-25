@@ -19,7 +19,21 @@
             var polynomialNamberTwo = new Polynomial(coefficentsSecondPolynomial);
 
             Console.WriteLine(polynomialNamberOne.BuildPolynomial());
+            Console.WriteLine($"степень первого многочлена = {polynomialNamberOne.ObtainDegreePolynomial()}");
             Console.WriteLine(polynomialNamberTwo.BuildPolynomial());
+            Console.WriteLine($"степень второго многочлена = {polynomialNamberTwo.ObtainDegreePolynomial()}");
+
+            Console.WriteLine("получение коеффицента при i-ой степени");
+            Console.WriteLine("введите степень i");
+            var degreeCoefficient = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine(
+                polynomialNamberOne.ObtainCoefficient(degreeCoefficient) != null
+                    ? $"коэффицент при {degreeCoefficient}-й степени первого многочлена равен {polynomialNamberOne.ObtainCoefficient(degreeCoefficient)}"
+                    : "такого коэффицента не существует у первого многочлена");
+            Console.WriteLine(
+                polynomialNamberTwo.ObtainCoefficient(degreeCoefficient) != null
+                    ? $"коэффицент при {degreeCoefficient}-й степени второго многочлена равен {polynomialNamberTwo.ObtainCoefficient(degreeCoefficient)}"
+                    : "такого коэффицента не существует у второго многочлена");
 
             Console.Write("сумма многочленов :");
             Console.WriteLine((polynomialNamberOne + polynomialNamberTwo).BuildPolynomial());
@@ -31,26 +45,30 @@
             Console.WriteLine((polynomialNamberOne * polynomialNamberTwo).BuildPolynomial());
 
             Console.WriteLine("унарный минус для первого многочлена");
-            Console.WriteLine(-polynomialNamberOne);
+            var polynomialUnaryMinus = -polynomialNamberOne;
+            Console.WriteLine("-(" + polynomialUnaryMinus.BuildPolynomial() + ")");
             Console.WriteLine("унарный минус для второго многочлена");
-            Console.WriteLine(-polynomialNamberTwo);
+            polynomialUnaryMinus = -polynomialNamberTwo;
+            Console.WriteLine("-(" + polynomialUnaryMinus.BuildPolynomial() + ")");
 
             Console.WriteLine(
-                polynomialNamberOne.ComparisonPolynomials(polynomialNamberTwo)
+                polynomialNamberOne.ComparePolynomials(polynomialNamberTwo)
                     ? "многочлены равны"
                     : "многочлены не равны");
 
             Console.WriteLine("введите значение переменной х для обоих многочленов");
             var variableX = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine($"значение первого многочлена при х = {variableX} равно {polynomialNamberOne.CalculatePolynomials(variableX)}");
-            Console.WriteLine($"значение второго многочлена при х = {variableX} равно {polynomialNamberTwo.CalculatePolynomials(variableX)}");
+            Console.WriteLine(
+                $"значение первого многочлена при х = {variableX} равно {polynomialNamberOne.CalculatePolynomials(variableX)}");
+            Console.WriteLine(
+                $"значение второго многочлена при х = {variableX} равно {polynomialNamberTwo.CalculatePolynomials(variableX)}");
 
             Console.WriteLine("вычисление значений многочлена могих переменных");
             Console.WriteLine("введите количество переменных");
             var numberVariables = Convert.ToInt32(Console.ReadLine());
             var values = InputValues(numberVariables);
             var valuesPolynomial = polynomialNamberOne.CalculatePolynomialOfSeveralVariables(values);
-            var iteration = 0;
+            var iteration = 1;
             OutputSetValuesPolynomial(values, valuesPolynomial, iteration);
             iteration++;
             valuesPolynomial = polynomialNamberTwo.CalculatePolynomialOfSeveralVariables(values);
@@ -101,11 +119,15 @@
             return valueVariable;
         }
 
-        public static void OutputSetValuesPolynomial(List<double> inputValues, List<double> resultValues, int iterationMetod)
+        public static void OutputSetValuesPolynomial(
+            List<double> inputValues,
+            List<double> resultValues,
+            int iterationMetod)
         {
             for (var i = 0; i < resultValues.Count; i++)
             {
-                Console.WriteLine($"значение{iterationMetod}-го многочлена при х = {inputValues[i]} равно {resultValues[i]}");
+                Console.WriteLine(
+                    $"значение{iterationMetod}-го многочлена при х = {inputValues[i]} равно {resultValues[i]}");
             }
         }
     }
