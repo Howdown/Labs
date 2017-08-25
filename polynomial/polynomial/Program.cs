@@ -18,9 +18,9 @@
             var polynomialNamberOne = new Polynomial(coefficentsFirstPolynomial);
             var polynomialNamberTwo = new Polynomial(coefficentsSecondPolynomial);
 
-            Console.WriteLine(polynomialNamberOne.BuildPolynomial());
+            Console.WriteLine(polynomialNamberOne.ToString());
             Console.WriteLine($"степень первого многочлена = {polynomialNamberOne.GetDegree()}");
-            Console.WriteLine(polynomialNamberTwo.BuildPolynomial());
+            Console.WriteLine(polynomialNamberTwo.ToString());
             Console.WriteLine($"степень второго многочлена = {polynomialNamberTwo.GetDegree()}");
 
             Console.WriteLine("получение коеффицента при i-ой степени");
@@ -36,20 +36,20 @@
                     : "такого коэффицента не существует у второго многочлена");
 
             Console.Write("сумма многочленов :");
-            Console.WriteLine((polynomialNamberOne + polynomialNamberTwo).BuildPolynomial());
+            Console.WriteLine((polynomialNamberOne + polynomialNamberTwo).ToString());
 
             Console.Write("разность многочленов :");
-            Console.WriteLine((polynomialNamberOne + (-polynomialNamberTwo)).BuildPolynomial());
+            Console.WriteLine((polynomialNamberOne + (-polynomialNamberTwo)).ToString());
 
             Console.Write("перемножение многочленов :");
-            Console.WriteLine((polynomialNamberOne * polynomialNamberTwo).BuildPolynomial());
+            Console.WriteLine((polynomialNamberOne * polynomialNamberTwo).ToString());
 
             Console.WriteLine("унарный минус для первого многочлена");
             var polynomialUnaryMinus = -polynomialNamberOne;
-            Console.WriteLine("-(" + polynomialUnaryMinus.BuildPolynomial() + ")");
+            Console.WriteLine("-(" + polynomialUnaryMinus.ToString() + ")");
             Console.WriteLine("унарный минус для второго многочлена");
             polynomialUnaryMinus = -polynomialNamberTwo;
-            Console.WriteLine("-(" + polynomialUnaryMinus.BuildPolynomial() + ")");
+            Console.WriteLine("-(" + polynomialUnaryMinus.ToString() + ")");
 
             Console.WriteLine(
                 polynomialNamberOne.ComparePolynomials(polynomialNamberTwo)
@@ -67,11 +67,11 @@
             Console.WriteLine("введите количество переменных");
             var numberVariables = Convert.ToInt32(Console.ReadLine());
             var values = InputValues(numberVariables);
-            var valuesPolynomial = polynomialNamberOne.CalculatePolynomialOfSeveralVariables(values);
+            var valuesPolynomial = polynomialNamberOne.CalculatePolynomialSeveralVariables(values);
             var iteration = 1;
             OutputSetValuesPolynomial(values, valuesPolynomial, iteration);
             iteration++;
-            valuesPolynomial = polynomialNamberTwo.CalculatePolynomialOfSeveralVariables(values);
+            valuesPolynomial = polynomialNamberTwo.CalculatePolynomialSeveralVariables(values);
             OutputSetValuesPolynomial(values, valuesPolynomial, iteration);
 
             Console.WriteLine("Нахождение корней на интервале");
