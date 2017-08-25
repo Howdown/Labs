@@ -19,27 +19,27 @@
             var polynomialNamberTwo = new Polynomial(coefficentsSecondPolynomial);
 
             Console.WriteLine(polynomialNamberOne.BuildPolynomial());
-            Console.WriteLine($"степень первого многочлена = {polynomialNamberOne.ObtainDegreePolynomial()}");
+            Console.WriteLine($"степень первого многочлена = {polynomialNamberOne.GetDegree()}");
             Console.WriteLine(polynomialNamberTwo.BuildPolynomial());
-            Console.WriteLine($"степень второго многочлена = {polynomialNamberTwo.ObtainDegreePolynomial()}");
+            Console.WriteLine($"степень второго многочлена = {polynomialNamberTwo.GetDegree()}");
 
             Console.WriteLine("получение коеффицента при i-ой степени");
             Console.WriteLine("введите степень i");
             var degreeCoefficient = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine(
-                polynomialNamberOne.ObtainCoefficient(degreeCoefficient) != null
-                    ? $"коэффицент при {degreeCoefficient}-й степени первого многочлена равен {polynomialNamberOne.ObtainCoefficient(degreeCoefficient)}"
+                polynomialNamberOne.GetCoefficient(degreeCoefficient) != null
+                    ? $"коэффицент при {degreeCoefficient}-й степени первого многочлена равен {polynomialNamberOne.GetCoefficient(degreeCoefficient)}"
                     : "такого коэффицента не существует у первого многочлена");
             Console.WriteLine(
-                polynomialNamberTwo.ObtainCoefficient(degreeCoefficient) != null
-                    ? $"коэффицент при {degreeCoefficient}-й степени второго многочлена равен {polynomialNamberTwo.ObtainCoefficient(degreeCoefficient)}"
+                polynomialNamberTwo.GetCoefficient(degreeCoefficient) != null
+                    ? $"коэффицент при {degreeCoefficient}-й степени второго многочлена равен {polynomialNamberTwo.GetCoefficient(degreeCoefficient)}"
                     : "такого коэффицента не существует у второго многочлена");
 
             Console.Write("сумма многочленов :");
             Console.WriteLine((polynomialNamberOne + polynomialNamberTwo).BuildPolynomial());
 
             Console.Write("разность многочленов :");
-            Console.WriteLine((polynomialNamberOne - polynomialNamberTwo).BuildPolynomial());
+            Console.WriteLine((polynomialNamberOne + (-polynomialNamberTwo)).BuildPolynomial());
 
             Console.Write("перемножение многочленов :");
             Console.WriteLine((polynomialNamberOne * polynomialNamberTwo).BuildPolynomial());
@@ -59,9 +59,9 @@
             Console.WriteLine("введите значение переменной х для обоих многочленов");
             var variableX = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine(
-                $"значение первого многочлена при х = {variableX} равно {polynomialNamberOne.CalculatePolynomials(variableX)}");
+                $"значение первого многочлена при х = {variableX} равно {polynomialNamberOne.Calculate(variableX)}");
             Console.WriteLine(
-                $"значение второго многочлена при х = {variableX} равно {polynomialNamberTwo.CalculatePolynomials(variableX)}");
+                $"значение второго многочлена при х = {variableX} равно {polynomialNamberTwo.Calculate(variableX)}");
 
             Console.WriteLine("вычисление значений многочлена могих переменных");
             Console.WriteLine("введите количество переменных");
@@ -81,12 +81,12 @@
             var rightBorder = Convert.ToDouble(Console.ReadLine());
             Console.WriteLine("введите точность");
             var epsilon = Convert.ToDouble(Console.ReadLine());
-            var rootsPolynomial = polynomialNamberOne.FindRoots(leftBorder, rightBorder, epsilon);
+            var rootsPolynomial = polynomialNamberOne.FindRoot(leftBorder, rightBorder, epsilon);
             Console.WriteLine(
                 rootsPolynomial != null
                     ? $"корень первого многочлена равен {rootsPolynomial}"
                     : "у первого многочлена нет корней на данном интервале");
-            rootsPolynomial = polynomialNamberTwo.FindRoots(leftBorder, rightBorder, epsilon);
+            rootsPolynomial = polynomialNamberTwo.FindRoot(leftBorder, rightBorder, epsilon);
             Console.WriteLine(
                 rootsPolynomial != null
                     ? $"корень второго многочлена равен {rootsPolynomial}"

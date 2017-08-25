@@ -60,15 +60,10 @@
             return result;
         }
 
-        public static Polynomial operator -(Polynomial polonomOfMinus)
+        public static Polynomial operator -(Polynomial polynomialOfMinus)
         {
-            var coefficientsOfMinus = new Polynomial();
-            for (var i = 0; i < polonomOfMinus.coefficients.Count; i++)
-            {
-                coefficientsOfMinus.coefficients.Add(polonomOfMinus.coefficients[i] * (-1));
-            }
-
-            return coefficientsOfMinus;
+            var coefficients = polynomialOfMinus.coefficients.Select(t => (-1) * t).ToList();
+            return new Polynomial(coefficients);
         }
 
         public static Polynomial operator -(Polynomial firstPolynomial, Polynomial secondPolynomial)
@@ -142,7 +137,7 @@
             return result;
         }
 
-        public int ObtainDegreePolynomial()
+        public int GetDegree()
         {
             var degreePolynomial = 0;
             for (var i = this.coefficients.Count - 1; i >= 0; i--)
@@ -157,14 +152,14 @@
             return degreePolynomial;
         }
 
-
-        public double? ObtainCoefficient(int degree)
+        public double? GetCoefficient(int degree)
         {
             double? coefficientOfdegree = null;
             if (degree < this.coefficients.Count && degree >= 0)
             {
                 coefficientOfdegree = this.coefficients[degree];
             }
+
             return coefficientOfdegree;
         }
 
@@ -190,29 +185,28 @@
             return representationPolynomial;
         }
 
-
         public bool ComparePolynomials(Polynomial secondPolynomial)
         {
             return this.coefficients.SequenceEqual(secondPolynomial.coefficients);
         }
 
-        public double CalculatePolynomials(double powerFactor)
+        public double Calculate(double powerFactor)
         {
             return this.coefficients.Select((t, i) => (double)Math.Pow(powerFactor, i) * t).Sum();
         }
 
-        public double? FindRoots(double borderLeft, double borderRight, double epsilon)
+        public double? FindRoot(double borderLeft, double borderRight, double epsilon)
         {
             var coefficientsPolynom = new Polynomial(this.coefficients);
             double? root = null;
             var halfInterval = (borderLeft + borderRight) / 2;
-            if ((coefficientsPolynom.CalculatePolynomials(borderLeft)
-                 * coefficientsPolynom.CalculatePolynomials(borderRight)) < 0)
+            if ((coefficientsPolynom.Calculate(borderLeft)
+                 * coefficientsPolynom.Calculate(borderRight)) < 0)
             {
                 while (Math.Abs(borderRight - borderLeft) > epsilon)
                 {
-                    if ((coefficientsPolynom.CalculatePolynomials(borderLeft)
-                         * coefficientsPolynom.CalculatePolynomials(halfInterval)) > 0)
+                    if ((coefficientsPolynom.Calculate(borderLeft)
+                         * coefficientsPolynom.Calculate(halfInterval)) > 0)
                     {
                         borderLeft = Math.Round(halfInterval, 5);
                     }
@@ -234,7 +228,7 @@
         public List<double> CalculatePolynomialOfSeveralVariables(List<double> variableValue)
         {
             var coefficientsPolynom = new Polynomial(this.coefficients);
-            return variableValue.Select(value => coefficientsPolynom.CalculatePolynomials(value)).ToList();
+            return variableValue.Select(value => coefficientsPolynom.Calculate(value)).ToList();
         }
     }
 }
