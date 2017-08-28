@@ -46,13 +46,13 @@
 
             Console.WriteLine("унарный минус для первого многочлена");
             var polynomialUnaryMinus = -polynomialNamberOne;
-            Console.WriteLine("-(" + polynomialUnaryMinus.ToString() + ")");
+            Console.WriteLine("-(" + polynomialUnaryMinus + ")");
             Console.WriteLine("унарный минус для второго многочлена");
             polynomialUnaryMinus = -polynomialNamberTwo;
-            Console.WriteLine("-(" + polynomialUnaryMinus.ToString() + ")");
+            Console.WriteLine("-(" + polynomialUnaryMinus + ")");
 
             Console.WriteLine(
-                polynomialNamberOne.ComparePolynomials(polynomialNamberTwo)
+                polynomialNamberOne.Compare(polynomialNamberTwo)
                     ? "многочлены равны"
                     : "многочлены не равны");
 

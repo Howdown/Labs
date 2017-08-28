@@ -156,14 +156,14 @@
             return representationPolynomial;
         }
 
-        public bool ComparePolynomials(Polynomial rightPolynomial)
+        public bool Compare(Polynomial secondPolynomial)
         {
-            return this.coefficients.SequenceEqual(rightPolynomial.coefficients);
+            return this.coefficients.SequenceEqual(secondPolynomial.coefficients);
         }
 
         public double Calculate(double powerFactor)
         {
-            return this.coefficients.Select((t, i) => (double)Math.Pow(powerFactor, i) * t).Sum();
+            return this.coefficients.Select((t, i) => Math.Pow(powerFactor, i) * t).Sum();
         }
 
         public double? FindRoot(double borderLeft, double borderRight, double epsilon)
