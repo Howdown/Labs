@@ -33,6 +33,31 @@
             this.coefficients = new List<double>();
         }
 
+        /// <summary>
+        /// this method allow to translate the parameters in string
+        /// </summary>
+        /// <returns>string parameter</returns>
+        public override string ToString()
+        {
+            var representationPolynomial = string.Empty;
+            for (var i = this.coefficients.Count - 1; i >= 0; i--)
+            {
+                if (i > 1)
+                {
+                    representationPolynomial += "(" + this.coefficients[i] + "x^" + i + ") + ";
+                }
+                else if (i == 1)
+                {
+                    representationPolynomial += "(" + this.coefficients[i] + "x) +";
+                }
+                else
+                {
+                    representationPolynomial += "(" + this.coefficients[i] + ")";
+                }
+            }
+
+            return representationPolynomial;
+        }
 
         public int Degree
         {
@@ -171,32 +196,6 @@
             }
 
             return coefficientOfdegree;
-        }
-
-        /// <summary>
-        /// this method allow to translate the parameters in string
-        /// </summary>
-        /// <returns>string parameter</returns>
-        public override string ToString()
-        {
-            var representationPolynomial = string.Empty;
-            for (var i = this.coefficients.Count - 1; i >= 0; i--)
-            {
-                if (i > 1)
-                {
-                    representationPolynomial += "(" + this.coefficients[i] + "x^" + i + ") + ";
-                }
-                else if (i == 1)
-                {
-                    representationPolynomial += "(" + this.coefficients[i] + "x) +";
-                }
-                else
-                {
-                    representationPolynomial += "(" + this.coefficients[i] + ")";
-                }
-            }
-
-            return representationPolynomial;
         }
 
         public bool Compare(Polynomial secondPolynomial)

@@ -19,9 +19,9 @@
             var polynomialNamberTwo = new Polynomial(coefficentsSecondPolynomial);
 
             Console.WriteLine(polynomialNamberOne.ToString());
-            Console.WriteLine($"степень первого многочлена = {polynomialNamberOne.GetDegree()}");
+            Console.WriteLine($"степень первого многочлена = {polynomialNamberOne.Degree}");
             Console.WriteLine(polynomialNamberTwo.ToString());
-            Console.WriteLine($"степень второго многочлена = {polynomialNamberTwo.GetDegree()}");
+            Console.WriteLine($"степень второго многочлена = {polynomialNamberTwo.Degree}");
 
             Console.WriteLine("получение коеффицента при i-ой степени");
             Console.WriteLine("введите степень i");
