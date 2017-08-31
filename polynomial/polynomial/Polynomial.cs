@@ -8,20 +8,38 @@
     using System.Linq;
     using System.Runtime.CompilerServices;
 
+    /// <summary>
+    /// this class provides functions
+    /// for working with polynomials
+    /// </summary>
     public class Polynomial
     {
         private List<double> coefficients;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Polynomial"/> class. 
+        /// </summary>
+        /// <param name="index">coefficients polynomial</param>
         public Polynomial(List<double> index)
         {
             this.coefficients = index;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Polynomial"/> class. 
+        /// </summary>
         public Polynomial()
         {
             this.coefficients = new List<double>();
         }
 
+        /// <summary>
+        /// this method allows you 
+        /// to add two polynomial
+        /// </summary>
+        /// <param name="leftPolynomial">the polynomial on the left of the sign</param>
+        /// <param name="rightPolynomial">the polynomial on the right of the sign</param>
+        /// <returns>the sum of polynomials</returns>
         public static Polynomial operator +(Polynomial leftPolynomial, Polynomial rightPolynomial)
         {
             var result = new Polynomial();
@@ -64,17 +82,35 @@
             return result;
         }
 
+        /// <summary>
+        /// this method allows get the unary minus
+        /// of the coefficients of the polynomial 
+        /// </summary>
+        /// <param name="polynomialOfMinus">coefficients polynomial </param>
+        /// <returns>coefficients polynomial with unary minus</returns>
         public static Polynomial operator -(Polynomial polynomialOfMinus)
         {
             var coefficients = polynomialOfMinus.coefficients.Select(t => (-1) * t).ToList();
             return new Polynomial(coefficients);
         }
 
+        /// <summary>
+        /// this method allows to produce the difference of polynomials
+        /// </summary>
+        /// <param name="leftPolynomial">coefficients polynomial which is located to the left of the sign</param>
+        /// <param name="rightPolynomial">coefficients polynomial which is located to the right of the sign</param>
+        /// <returns>difference polynomials</returns>
         public static Polynomial operator -(Polynomial leftPolynomial, Polynomial rightPolynomial)
         {
             return leftPolynomial + (-rightPolynomial);
         }
 
+        /// <summary>
+        /// this method allow the multiplication of two polynomials
+        /// </summary>
+        /// <param name="leftPolynomial">coefficients polynomial which is located to the left of the sign</param>
+        /// <param name="rightPolynomial">coefficients polynomials which is located to the right of the sign</param>
+        /// <returns>the product of the polynomials</returns>
         public static Polynomial operator *(Polynomial leftPolynomial, Polynomial rightPolynomial)
         {
             var result = new Polynomial();
@@ -82,8 +118,7 @@
             var rightCoefficients = rightPolynomial.coefficients;
             var corrector = 0;
             var summ = 0.0;
-            var values = new double[leftCoefficients.Count,
-                leftCoefficients.Count + rightCoefficients.Count - 1];
+            var values = new double[leftCoefficients.Count, leftCoefficients.Count + rightCoefficients.Count - 1];
             for (var i = 0; i < leftCoefficients.Count; i++)
             {
                 for (var j = 0; j < rightCoefficients.Count; j++)
@@ -108,6 +143,10 @@
             return result;
         }
 
+        /// <summary>
+        /// this method allow get the degree of polynomial
+        /// </summary>
+        /// <returns>degree polynomial</returns>
         public int GetDegree()
         {
             var polynomialDegree = 0;
@@ -134,6 +173,10 @@
             return coefficientOfdegree;
         }
 
+        /// <summary>
+        /// this method allow to translate the parameters in string
+        /// </summary>
+        /// <returns>string parameter</returns>
         public override string ToString()
         {
             var representationPolynomial = string.Empty;
@@ -166,18 +209,23 @@
             return this.coefficients.Select((t, i) => Math.Pow(powerFactor, i) * t).Sum();
         }
 
+        /// <summary>
+        /// Allow find a root of the polynomial
+        /// </summary>
+        /// <param name="borderLeft">Left boundary value</param>
+        /// <param name="borderRight">Right boundary value</param>
+        /// <param name="epsilon">Precision</param>
+        /// <returns>Root polynomial</returns>
         public double? FindRoot(double borderLeft, double borderRight, double epsilon)
         {
             var coefficientsPolynom = new Polynomial(this.coefficients);
             double? root = null;
             var halfInterval = (borderLeft + borderRight) / 2;
-            if ((coefficientsPolynom.Calculate(borderLeft)
-                 * coefficientsPolynom.Calculate(borderRight)) < 0)
+            if ((coefficientsPolynom.Calculate(borderLeft) * coefficientsPolynom.Calculate(borderRight)) < 0)
             {
                 while (Math.Abs(borderRight - borderLeft) > epsilon)
                 {
-                    if ((coefficientsPolynom.Calculate(borderLeft)
-                         * coefficientsPolynom.Calculate(halfInterval)) > 0)
+                    if ((coefficientsPolynom.Calculate(borderLeft) * coefficientsPolynom.Calculate(halfInterval)) > 0)
                     {
                         borderLeft = Math.Round(halfInterval, 5);
                     }
@@ -196,6 +244,11 @@
             return root;
         }
 
+        /// <summary>
+        /// This method allow the calculate the values of a polynomial
+        /// </summary>
+        /// <param name="variableValue">The values of the unknown</param>
+        /// <returns>Values of a polynomial</returns>
         public List<double> CalculatePolynomialSeveralVariables(List<double> variableValue)
         {
             var coefficientsPolynom = new Polynomial(this.coefficients);
