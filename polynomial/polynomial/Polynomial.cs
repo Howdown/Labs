@@ -33,6 +33,25 @@
             this.coefficients = new List<double>();
         }
 
+
+        public int Degree
+        {
+            get
+            {
+                var polynomialDegree = 0;
+                for (var i = this.coefficients.Count - 1; i >= 0; i--)
+                {
+                    if (Math.Abs(this.coefficients[i]) > 0)
+                    {
+                        polynomialDegree = i;
+                        break;
+                    }
+                }
+
+                return polynomialDegree;
+            }
+        }
+
         /// <summary>
         /// this method allows you 
         /// to add two polynomial
@@ -141,25 +160,6 @@
             }
 
             return result;
-        }
-
-        /// <summary>
-        /// this method allow get the degree of polynomial
-        /// </summary>
-        /// <returns>degree polynomial</returns>
-        public int GetDegree()
-        {
-            var polynomialDegree = 0;
-            for (var i = this.coefficients.Count - 1; i >= 0; i--)
-            {
-                if (Math.Abs(this.coefficients[i]) > 0)
-                {
-                    polynomialDegree = i;
-                    break;
-                }
-            }
-
-            return polynomialDegree;
         }
 
         public double? GetCoefficient(int degree)
