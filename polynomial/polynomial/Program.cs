@@ -12,10 +12,20 @@
             Console.WriteLine("введите степень первого многочлена");
             var order = Convert.ToInt32(Console.ReadLine());
             var coefficentsFirstPolynomial = InputCoefficients(order);
+            Polynomial polynomialNamberOne;
+            try
+            {
+                polynomialNamberOne = new Polynomial(coefficentsFirstPolynomial);
+            }
+            catch (ArgumentNullException e)
+            {
+                Console.WriteLine($"{e.GetType().Name} an instance of a class cannot be null");
+                throw;
+            }
+
             Console.WriteLine("введите степень второго многочлена");
             order = Convert.ToInt32(Console.ReadLine());
             var coefficentsSecondPolynomial = InputCoefficients(order);
-            var polynomialNamberOne = new Polynomial(coefficentsFirstPolynomial);
             var polynomialNamberTwo = new Polynomial(coefficentsSecondPolynomial);
 
             Console.WriteLine(polynomialNamberOne.ToString());
@@ -96,14 +106,14 @@
         public static List<double> InputCoefficients(int number)
         {
             var ratio = new List<double>();
-            for (var i = 0; i <= number; i++)
+            /*for (var i = 0; i <= number; i++)
             {
                 Console.WriteLine("Введите коэффицент при" + i + "-й степени");
                 var coefficient = Convert.ToDouble(Console.ReadLine());
                 ratio.Add(coefficient);
-            }
+            }*/
 
-            return ratio;
+            return ratio = null;
         }
 
         public static List<double> InputValues(int count)

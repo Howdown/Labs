@@ -18,9 +18,9 @@
         /// <param name="index">coefficients polynomial</param>
         public Polynomial(List<double> index)
         {
-            if (index.Count == 0)
+            if (index == null)
             {
-                throw new ArgumentException("Value cannot be an empty collection.", nameof(index));
+                throw new ArgumentNullException(nameof(index));
             }
 
             this.coefficients = index;
@@ -66,7 +66,6 @@
                 throw new ArgumentNullException(nameof(leftPolynomial));
                 
             }
-
             if (rightPolynomial == null)
             {
                 throw new ArgumentNullException(nameof(rightPolynomial));
