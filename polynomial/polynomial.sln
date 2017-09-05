@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "polynomial", "polynomial\polynomial.csproj", "{B8A616AD-2464-4E61-A0A7-D40F9B1D5298}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Polynom", "ClassLibrary2\Polynom.csproj", "{BB64F846-D8D7-4B31-B0F9-89FD06D431A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolynomTests", "PolynomTests\PolynomTests.csproj", "{839ACF27-E688-4A03-854A-1EEC12300D1B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{B8A616AD-2464-4E61-A0A7-D40F9B1D5298}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8A616AD-2464-4E61-A0A7-D40F9B1D5298}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8A616AD-2464-4E61-A0A7-D40F9B1D5298}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB64F846-D8D7-4B31-B0F9-89FD06D431A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB64F846-D8D7-4B31-B0F9-89FD06D431A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB64F846-D8D7-4B31-B0F9-89FD06D431A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB64F846-D8D7-4B31-B0F9-89FD06D431A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{839ACF27-E688-4A03-854A-1EEC12300D1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{839ACF27-E688-4A03-854A-1EEC12300D1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{839ACF27-E688-4A03-854A-1EEC12300D1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{839ACF27-E688-4A03-854A-1EEC12300D1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
