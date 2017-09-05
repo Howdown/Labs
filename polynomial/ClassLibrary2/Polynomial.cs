@@ -18,11 +18,6 @@
         /// <param name="index">coefficients polynomial</param>
         public Polynomial(List<double> index)
         {
-            if (index == null)
-            {
-                throw new ArgumentNullException(nameof(index));
-            }
-
             this.coefficients = index;
         }
 
@@ -38,16 +33,7 @@
         {
             get
             {
-                var polynomialDegree = 0;
-                for (var i = this.coefficients.Count - 1; i >= 0; i--)
-                {
-                    if (Math.Abs(this.coefficients[i]) > 0)
-                    {
-                        polynomialDegree = i;
-                        break;
-                    }
-                }
-
+                var polynomialDegree = this.coefficients.Count;
                 return polynomialDegree;
             }
         }
@@ -63,9 +49,9 @@
         {
             if (leftPolynomial == null)
             {
-                throw new ArgumentNullException(nameof(leftPolynomial));
-                
+                throw new ArgumentNullException(nameof(leftPolynomial));   
             }
+
             if (rightPolynomial == null)
             {
                 throw new ArgumentNullException(nameof(rightPolynomial));
