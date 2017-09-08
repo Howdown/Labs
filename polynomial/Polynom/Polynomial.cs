@@ -18,7 +18,7 @@
         /// <param name="index">coefficients polynomial</param>
         public Polynomial(List<double> index)
         {
-            this.coefficients = index;
+            this.coefficients = index ?? throw new ArgumentNullException(nameof(index));
         }
 
         /// <summary>
@@ -31,7 +31,6 @@
             {
                 throw new ArgumentNullException(nameof(coefficients));
             }
-
             this.coefficients = coefficients.ToList();
         }
 
