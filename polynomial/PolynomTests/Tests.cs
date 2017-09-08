@@ -9,16 +9,6 @@
     public class Tests
     {
         [Test]
-        public void TwoEptyPolynomials_AddInstanceOfTheClass_ValueResultCannotBeEmpty()
-        {
-            // assert
-            Assert.Throws<ArgumentNullException>(() =>
-                    {
-                        var first = new Polynomial(null);
-                    });
-        }
-
-        [Test]
         public void TwoEptyPolynomials_Adding_ResultMustBe()
         {
             // arrange

@@ -21,12 +21,18 @@
             this.coefficients = index;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Polynomial"/> class. 
+        /// </summary>
+        /// <param name="coefficients">coefficients polynomial with used params</param>
         public Polynomial(params double[] coefficients)
         {
-            foreach (var coefficient in coefficients)
+            if (coefficients == null)
             {
-                this.coefficients.Add(coefficient);
+                throw new ArgumentNullException(nameof(coefficients));
             }
+
+            this.coefficients = coefficients.ToList();
         }
 
         /// <summary>
@@ -49,6 +55,8 @@
                         polynomialDegree = i;
                         break;
                     }
+
+                    polynomialDegree = 0;
                 }
 
                 return polynomialDegree;
@@ -298,10 +306,10 @@
             return representationPolynomial;
         }
 
-        public Polynomial Copy(Polynomial firstPolynomial)
+        public Polynomial Copy()
         {
             var secondPolynomial = new Polynomial();
-            foreach (var coeficient in firstPolynomial.coefficients)
+            foreach (var coeficient in this.coefficients)
             {
                 secondPolynomial.coefficients.Add(coeficient);
             }
