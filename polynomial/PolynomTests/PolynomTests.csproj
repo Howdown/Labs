@@ -50,8 +50,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary2\Polynom.csproj">
-      <Project>{bb64f846-d8d7-4b31-b0f9-89fd06d431a4}</Project>
+    <ProjectReference Include="..\Polynom\Polynom.csproj">
+      <Project>{fb78bb95-1df1-4b21-b395-69ddffb462ea}</Project>
       <Name>Polynom</Name>
     </ProjectReference>
   </ItemGroup>

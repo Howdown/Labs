@@ -2,8 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-
-    using ClassLibrary2;
+    using Polynom;
 
     public class Program
     {
@@ -115,18 +114,7 @@
                     }
                 }
 
-                ratio.Add(coefficient);
-                if (i == number)
-                {
-                    while (admissibility == false)
-                    {
-                        if (Math.Abs(ratio[number]) > 0)
-                        {
-                            admissibility = true;
-                        }
-                        Console.WriteLine($"коэфицент при {number} - й степени не может равняться нулю введите ещё раз");
-                    }
-                }
+                ratio.Add(coefficient); 
             }
 
             return ratio;

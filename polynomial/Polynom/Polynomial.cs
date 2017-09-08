@@ -1,12 +1,8 @@
-﻿namespace Polynomial
+﻿namespace Polynom
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Diagnostics.Eventing.Reader;
-    using System.Globalization;
     using System.Linq;
-    using System.Runtime.CompilerServices;
 
     /// <summary>
     /// this class provides functions
@@ -23,6 +19,14 @@
         public Polynomial(List<double> index)
         {
             this.coefficients = index;
+        }
+
+        public Polynomial(params double[] coefficients)
+        {
+            foreach (var coefficient in coefficients)
+            {
+                this.coefficients.Add(coefficient);
+            }
         }
 
         /// <summary>
@@ -60,6 +64,16 @@
         /// <returns>the sum of polynomials</returns>
         public static Polynomial operator +(Polynomial leftPolynomial, Polynomial rightPolynomial)
         {
+            if (leftPolynomial == null)
+            {
+                throw new ArgumentNullException(nameof(leftPolynomial));   
+            }
+
+            if (rightPolynomial == null)
+            {
+                throw new ArgumentNullException(nameof(rightPolynomial));
+            }
+
             var result = new Polynomial();
             double summ;
             var leftCoefficients = leftPolynomial.coefficients;
@@ -108,6 +122,11 @@
         /// <returns>coefficients polynomial with unary minus</returns>
         public static Polynomial operator -(Polynomial polynomialOfMinus)
         {
+            if (polynomialOfMinus == null)
+            {
+                throw new ArgumentNullException(nameof(polynomialOfMinus));
+            }
+
             var coefficients = polynomialOfMinus.coefficients.Select(t => (-1) * t).ToList();
             return new Polynomial(coefficients);
         }
@@ -120,6 +139,16 @@
         /// <returns>difference polynomials</returns>
         public static Polynomial operator -(Polynomial leftPolynomial, Polynomial rightPolynomial)
         {
+            if (leftPolynomial == null)
+            {
+                throw new ArgumentNullException(nameof(leftPolynomial));
+            }
+
+            if (rightPolynomial == null)
+            {
+                throw new ArgumentNullException(nameof(rightPolynomial));
+            }
+
             return leftPolynomial + (-rightPolynomial);
         }
 
@@ -131,6 +160,16 @@
         /// <returns>the product of the polynomials</returns>
         public static Polynomial operator *(Polynomial leftPolynomial, Polynomial rightPolynomial)
         {
+            if (leftPolynomial == null)
+            {
+                throw new ArgumentNullException(nameof(leftPolynomial));
+            }
+
+            if (rightPolynomial == null)
+            {
+                throw new ArgumentNullException(nameof(rightPolynomial));
+            }
+
             var result = new Polynomial();
             var leftCoefficients = leftPolynomial.coefficients;
             var rightCoefficients = rightPolynomial.coefficients;
@@ -174,6 +213,11 @@
 
         public bool Compare(Polynomial secondPolynomial)
         {
+            if (secondPolynomial == null)
+            {
+                throw new ArgumentNullException(nameof(secondPolynomial));
+            }
+
             return this.coefficients.SequenceEqual(secondPolynomial.coefficients);
         }
 
@@ -252,6 +296,17 @@
             }
 
             return representationPolynomial;
+        }
+
+        public Polynomial Copy(Polynomial firstPolynomial)
+        {
+            var secondPolynomial = new Polynomial();
+            foreach (var coeficient in firstPolynomial.coefficients)
+            {
+                secondPolynomial.coefficients.Add(coeficient);
+            }
+
+            return secondPolynomial;
         }
     }
 }
