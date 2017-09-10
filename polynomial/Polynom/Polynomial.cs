@@ -18,7 +18,7 @@
         /// <param name="index">coefficients polynomial</param>
         public Polynomial(List<double> index)
         {
-            this.coefficients = index ?? throw new ArgumentNullException(nameof(index));
+            this.coefficients = index;
         }
 
         /// <summary>
@@ -27,10 +27,6 @@
         /// <param name="coefficients">coefficients polynomial with used params</param>
         public Polynomial(params double[] coefficients)
         {
-            if (coefficients == null)
-            {
-                throw new ArgumentNullException(nameof(coefficients));
-            }
             this.coefficients = coefficients.ToList();
         }
 
@@ -73,7 +69,7 @@
         {
             if (leftPolynomial == null)
             {
-                throw new ArgumentNullException(nameof(leftPolynomial));   
+                throw new ArgumentNullException(nameof(leftPolynomial));
             }
 
             if (rightPolynomial == null)
@@ -177,6 +173,16 @@
                 throw new ArgumentNullException(nameof(rightPolynomial));
             }
 
+            if (leftPolynomial.coefficients.Count <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(leftPolynomial));
+            }
+
+            if (rightPolynomial.coefficients.Count <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(rightPolynomial));
+            }
+
             var result = new Polynomial();
             var leftCoefficients = leftPolynomial.coefficients;
             var rightCoefficients = rightPolynomial.coefficients;
@@ -225,6 +231,11 @@
                 throw new ArgumentNullException(nameof(secondPolynomial));
             }
 
+            if (this.coefficients == null)
+            {
+                throw new ArgumentNullException(nameof(this.coefficients));
+            }
+
             return this.coefficients.SequenceEqual(secondPolynomial.coefficients);
         }
 
@@ -242,6 +253,18 @@
         /// <returns>Root polynomial</returns>
         public double? FindRoot(double borderLeft, double borderRight, double epsilon)
         {
+            if (epsilon <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(epsilon));
+            }
+
+            if (borderLeft > borderRight)
+            {
+                var intermediateValue = borderLeft;
+                borderLeft = borderRight;
+                borderRight = intermediateValue;
+            }
+
             var coefficientsPolynom = new Polynomial(this.coefficients);
             double? root = null;
             var halfInterval = (borderLeft + borderRight) / 2;
@@ -276,6 +299,11 @@
         public List<double> CalculatePolynomialSeveralVariables(List<double> variableValue)
         {
             var coefficientsPolynom = new Polynomial(this.coefficients);
+            if (coefficientsPolynom == null)
+            {
+                throw new ArgumentNullException(nameof(coefficientsPolynom));
+            }
+
             return variableValue.Select(value => coefficientsPolynom.Calculate(value)).ToList();
         }
 
@@ -288,17 +316,23 @@
             var representationPolynomial = string.Empty;
             for (var i = this.coefficients.Count - 1; i >= 0; i--)
             {
-                if (i > 1)
+                if (this.coefficients[i] != 0)
                 {
-                    representationPolynomial += "(" + this.coefficients[i] + "x^" + i + ") + ";
-                }
-                else if (i == 1)
-                {
-                    representationPolynomial += "(" + this.coefficients[i] + "x) +";
-                }
-                else
-                {
-                    representationPolynomial += "(" + this.coefficients[i] + ")";
+                    if (i > 1)
+                    {
+                        if (this.coefficients[i] != 0)
+                        {
+                            representationPolynomial += "(" + this.coefficients[i] + "x^" + i + ") + ";
+                        }
+                    }
+                    else if (i == 1)
+                    {
+                        representationPolynomial += "(" + this.coefficients[i] + "x) +";
+                    }
+                    else
+                    {
+                        representationPolynomial += "(" + this.coefficients[i] + ")";
+                    }
                 }
             }
 

@@ -104,13 +104,15 @@
                 {
                     while (admissibility == false)
                     {
-                        if (coefficient > 0)
+                        if (coefficient != 0)
                         {
                             admissibility = true;
                         }
-
-                        Console.WriteLine($"коэфицент при {number} - й степени не может равняться нулю введите ещё раз \n");
-                        coefficient = Convert.ToDouble(Console.ReadLine());
+                        else
+                        {
+                            Console.WriteLine($"коэфицент при {number} - й степени не может равняться нулю введите ещё раз \n");
+                            coefficient = Convert.ToDouble(Console.ReadLine());
+                        }
                     }
                 }
 
