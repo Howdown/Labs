@@ -292,8 +292,7 @@
         /// <returns>Values of a polynomial</returns>
         public List<double> CalculatePolynomialSeveralVariables(List<double> variableValue)
         {
-            var coefficientsPolynom = new Polynomial(this.coefficients);
-            return variableValue.Select(value => coefficientsPolynom.Calculate(value)).ToList();
+            return variableValue.Select(this.Calculate).ToList();
         }
 
         /// <summary>
@@ -335,7 +334,6 @@
             {
                 secondPolynomial.coefficients.Add(coeficient);
             }
-
             return secondPolynomial;
         }
     }
