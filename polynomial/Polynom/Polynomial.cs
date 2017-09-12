@@ -58,6 +58,21 @@
             }
         }
 
+        public double? this[int index]
+        {
+            get
+            {
+                double? coefficient = null;
+
+                if (index >= 0 && index < this.coefficients.Count)
+                {
+                    coefficient = this.coefficients[index];
+                }
+
+                return coefficient;
+            }
+        }
+
         /// <summary>
         /// this method allows you 
         /// to add two polynomial
