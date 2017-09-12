@@ -1,4 +1,6 @@
-﻿namespace PolynomTests
+﻿// ReSharper disable InconsistentNaming
+
+namespace PolynomTests
 {
     using System;
     using System.Collections.Generic;
@@ -217,8 +219,7 @@
         }
 
         [Test]
-        public void
-            FirstPolynomialGreaterOrdersThenSecondPolynomial_Difference_ResultMustBeDifferencePolynomials()
+        public void FirstPolynomialGreaterOrdersThenSecondPolynomial_Difference_ResultMustBeDifferencePolynomials()
         {
             // arrange
             var first = new Polynomial(1, 5, -7, -3, 5, 8, -7);
@@ -233,8 +234,7 @@
         }
 
         [Test]
-        public void
-            FirstPolynomialLessOrdersThenSecondPolynomial_Difference_ResultMustBeDifferencePolynomials()
+        public void FirstPolynomialLessOrdersThenSecondPolynomial_Difference_ResultMustBeDifferencePolynomials()
         {
             // arrange
             var first = new Polynomial(1, 5, -7, -3, 5);
@@ -333,7 +333,7 @@
             Assert.Throws<ArgumentOutOfRangeException>(
                 () =>
                     {
-                       var result = first * second;
+                        var result = first * second;
                     });
         }
 
@@ -512,7 +512,7 @@
             Assert.IsTrue(result.SequenceEqual(new List<double> { 3, 33.24, 43 }));
         }
 
-            [Test]
+        [Test]
         public void EmptyPolynomial_representationPolynomial_ResultMustBeEmptyString()
         {
             // arrange

@@ -175,12 +175,12 @@
 
             if (leftPolynomial.coefficients.Count <= 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(leftPolynomial));
+                throw new ArgumentException("The dimension of the polynomial cannot be zero", nameof(leftPolynomial));
             }
 
             if (rightPolynomial.coefficients.Count <= 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(rightPolynomial));
+                throw new ArgumentException("The dimension of the polynomial cannot be zero", nameof(rightPolynomial));
             }
 
             var result = new Polynomial();
@@ -231,11 +231,6 @@
                 throw new ArgumentNullException(nameof(secondPolynomial));
             }
 
-            if (this.coefficients == null)
-            {
-                throw new ArgumentNullException(nameof(this.coefficients));
-            }
-
             return this.coefficients.SequenceEqual(secondPolynomial.coefficients);
         }
 
@@ -281,7 +276,6 @@
                         borderRight = Math.Round(halfInterval, 5);
                     }
 
-                    var sum = Math.Abs(Math.Round(borderRight - borderLeft, 5));
                     halfInterval = Math.Round(borderLeft + borderRight, 5) / 2;
                 }
 
@@ -299,11 +293,6 @@
         public List<double> CalculatePolynomialSeveralVariables(List<double> variableValue)
         {
             var coefficientsPolynom = new Polynomial(this.coefficients);
-            if (coefficientsPolynom == null)
-            {
-                throw new ArgumentNullException(nameof(coefficientsPolynom));
-            }
-
             return variableValue.Select(value => coefficientsPolynom.Calculate(value)).ToList();
         }
 
