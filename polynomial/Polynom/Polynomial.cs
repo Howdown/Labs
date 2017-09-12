@@ -304,14 +304,11 @@
             var representationPolynomial = string.Empty;
             for (var i = this.coefficients.Count - 1; i >= 0; i--)
             {
-                if (this.coefficients[i] != 0)
+                if (this.coefficients[i].Eq(0))
                 {
                     if (i > 1)
                     {
-                        if (this.coefficients[i] != 0)
-                        {
                             representationPolynomial += "(" + this.coefficients[i] + "x^" + i + ") + ";
-                        }
                     }
                     else if (i == 1)
                     {
@@ -334,6 +331,7 @@
             {
                 secondPolynomial.coefficients.Add(coeficient);
             }
+
             return secondPolynomial;
         }
     }
