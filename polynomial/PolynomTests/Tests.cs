@@ -4,8 +4,6 @@ namespace PolynomTests
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-
     using NUnit.Framework;
 
     using Polynom;
@@ -50,29 +48,23 @@ namespace PolynomTests
         public void PolynomialAndNull_Adding_ResultMustBeException()
         {
             // arrange
-            var a = new Polynomial(1, 5, 9);
-            Polynomial b = null;
+            var first = new Polynomial(1, 5, 9);
+            Polynomial second = null;
 
             // assert
-            Assert.Throws<ArgumentNullException>(
+            Assert.Multiple(
                 () =>
                     {
-                        var d = a + b;
-                    });
-        }
-
-        [Test]
-        public void NullAndPolynomial_Adding_ResultMustBeException()
-        {
-            // arrange
-            Polynomial a = null;
-            Polynomial b = new Polynomial(1, 5, 9);
-
-            // assert
-            Assert.Throws<ArgumentNullException>(
-                () =>
-                    {
-                        var d = a + b;
+                        Assert.Throws<ArgumentNullException>(
+                            () =>
+                                {
+                                    var result = first + second;
+                                });
+                        Assert.Throws<ArgumentNullException>(
+                            () =>
+                                {
+                                    var result = second + first;
+                                });
                     });
         }
 
@@ -91,7 +83,7 @@ namespace PolynomTests
         }
 
         [Test]
-        public void ValidPolynomialAndZeroPolynomial_Adding_ResultMustBeValidPolynomial()
+        public void ZeroPolynomial_Adding_ResultMustBeValidPolynomial()
         {
             // arrange
             var first = new Polynomial(5, 5, 3, 0, 5);
@@ -105,7 +97,7 @@ namespace PolynomTests
         }
 
         [Test]
-        public void TwoPolynomialsFirstGreaterExtentThanSecond_Adding_ResultMustSumTwoPolynomials()
+        public void TwoPolynomialsDifferentLength_Adding_ResultMustSumTwoPolynomials()
         {
             // arrange
             var first = new Polynomial(5, 5, 3, 0, 5);
@@ -113,25 +105,16 @@ namespace PolynomTests
             var comparison = new Polynomial(5, 6, 10, 5, 5);
 
             // action
-            var result = first + second;
+            var resultFirst = first + second;
+            var resultSecond = second + first;
 
             // assert
-            Assert.IsTrue(result.Compare(comparison));
-        }
-
-        [Test]
-        public void TwoPolynomialsFirstLessExtentThanSecond_Adding_ResultMustSumTwoPolynomials()
-        {
-            // arrange
-            var first = new Polynomial(1, 8, 9);
-            var second = new Polynomial(0, 1, 7, 5, 8);
-            var comparison = new Polynomial(1, 9, 16, 5, 8);
-
-            // action
-            var result = first + second;
-
-            // assert
-            Assert.IsTrue(result.Compare(comparison));
+            Assert.Multiple(
+                () =>
+                    {
+                        Assert.IsTrue(resultFirst.Compare(comparison));
+                        Assert.IsTrue(resultSecond.Compare(comparison));
+                    });
         }
 
         [Test]
@@ -146,7 +129,7 @@ namespace PolynomTests
         }
 
         [Test]
-        public void ValidPolynomialWithNegativeCoefficients_UnaryMinus_ResultMustBeValidPolynomialsWithUnaryMinus()
+        public void PolynomialsWithNegativeCoefficients_UnaryMinus_ResultMustBeValidPolynomialsWithUnaryMinus()
         {
             // arrange
             var validPolynomial = new Polynomial(4, -7, 8, -0, -9);
@@ -173,32 +156,26 @@ namespace PolynomTests
         }
 
         [Test]
-        public void FirstPolynomialIsValidAndSecondPolynomialIsNull_Difference_ResultMustBeExeption()
+        public void OnePolynomialsIsNull_Difference_ResultMustBeException()
         {
             // arrange
             var first = new Polynomial(1, 8, 9);
             Polynomial second = null;
 
             // assert
-            Assert.Throws<ArgumentNullException>(
+            Assert.Multiple(
                 () =>
                     {
-                        var result = first - second;
-                    });
-        }
-
-        [Test]
-        public void FirstPolynomialIsNullAndSecondPolynomialIsValid_Difference_ResultMustBeExeption()
-        {
-            // arrange
-            Polynomial first = null;
-            var second = new Polynomial(1, 5, 7, -3);
-
-            // assert 
-            Assert.Throws<ArgumentNullException>(
-                () =>
-                    {
-                        var result = first - second;
+                        Assert.Throws<ArgumentNullException>(
+                            () =>
+                                {
+                                    var result = first - second;
+                                });
+                        Assert.Throws<ArgumentNullException>(
+                            () =>
+                                {
+                                    var result = second - first;
+                                });
                     });
         }
 
@@ -219,37 +196,29 @@ namespace PolynomTests
         }
 
         [Test]
-        public void FirstPolynomialGreaterOrdersThenSecondPolynomial_Difference_ResultMustBeDifferencePolynomials()
+        public void PolynomialsWithDifferenceOrders_Difference_ResultMustBeDifferencePolynomials()
         {
             // arrange
             var first = new Polynomial(1, 5, -7, -3, 5, 8, -7);
             var second = new Polynomial(4, 3, -8, 1, -2);
-            var resultDifference = new Polynomial(-3, 2, 1, -4, 7, 8, -7);
+            var resultFirstDifference = new Polynomial(-3, 2, 1, -4, 7, 8, -7);
+            var resultSecondDifference = new Polynomial(3, -2, -1, 4, -7, -8, 7);
 
             // action
-            var result = first - second;
+            var resultFirst = first - second;
+            var resultSecond = second - first;
 
             // assert
-            Assert.IsTrue(result.Compare(resultDifference));
+            Assert.Multiple(
+                () =>
+                    {
+                        Assert.IsTrue(resultFirst.Compare(resultFirstDifference));
+                        Assert.IsTrue(resultSecond.Compare(resultSecondDifference));
+                    });
         }
 
         [Test]
-        public void FirstPolynomialLessOrdersThenSecondPolynomial_Difference_ResultMustBeDifferencePolynomials()
-        {
-            // arrange
-            var first = new Polynomial(1, 5, -7, -3, 5);
-            var second = new Polynomial(4, 3, -8, 1, -2, 8, -7);
-            var resultDifference = new Polynomial(-3, 2, 1, -4, 7, -8, 7);
-
-            // action
-            var result = first - second;
-
-            // assert
-            Assert.IsTrue(result.Compare(resultDifference));
-        }
-
-        [Test]
-        public void TwoEmptyPolynomials_Diference_ResultMustBeEmpty()
+        public void TwoEmptyPolynomials_Difference_ResultMustBeEmpty()
         {
             // arrange
             var first = new Polynomial();
@@ -263,37 +232,31 @@ namespace PolynomTests
         }
 
         [Test]
-        public void FirstPolynomialIsValidAndSecondPolynomialIsNull_Multyplication_ResultMustBeExeption()
+        public void OnePolynomialsIsNull_Multiplication_ResultMustBeException()
         {
             // arrange
             var first = new Polynomial(1, 8, 9);
             Polynomial second = null;
 
             // assert
-            Assert.Throws<ArgumentNullException>(
+            Assert.Multiple(
                 () =>
                     {
-                        var result = first * second;
+                        Assert.Throws<ArgumentNullException>(
+                            () =>
+                                {
+                                    var result = first * second;
+                                });
+                        Assert.Throws<ArgumentNullException>(
+                            () =>
+                                {
+                                    var result = second * first;
+                                });
                     });
         }
 
         [Test]
-        public void FirstPolynomialIsNullAndSecondPolynomialIsValid_Multiplication_ResultMustBeExeption()
-        {
-            // arrange
-            Polynomial first = null;
-            var second = new Polynomial(1, 5, 7, -3);
-
-            // assert 
-            Assert.Throws<ArgumentNullException>(
-                () =>
-                    {
-                        var result = first * second;
-                    });
-        }
-
-        [Test]
-        public void FirstPolunomialIsZeroAndSecondPolynomialIsValid_Multyplication_ResultMustBeZeroPolynomial()
+        public void FirstPolunomialIsZeroAndSecondPolynomialIsValid_Multiplication_ResultMustBeZeroPolynomial()
         {
             // arrange
             var first = new Polynomial(0, 0);
@@ -308,7 +271,7 @@ namespace PolynomTests
         }
 
         [Test]
-        public void TwoPolynomialWithNegativeCoefficients_Multyplication_ResultMustBePolynomial()
+        public void TwoPolynomialWithNegativeCoefficients_Multiplication_ResultMustBePolynomial()
         {
             // arrange
             var first = new Polynomial(3, -1);
@@ -323,14 +286,14 @@ namespace PolynomTests
         }
 
         [Test]
-        public void TwoEmptyPolynomials_Multiplication_ResultMustBeExeption()
+        public void TwoEmptyPolynomials_Multiplication_ResultMustBeException()
         {
             // arrange
             var first = new Polynomial();
             var second = new Polynomial();
 
             // assert
-            Assert.Throws<ArgumentOutOfRangeException>(
+            Assert.Throws<ArgumentException>(
                 () =>
                     {
                         var result = first * second;
@@ -338,7 +301,7 @@ namespace PolynomTests
         }
 
         [Test]
-        public void EmptyPolynomials_GetCoeficients_ResultMustBeNull()
+        public void EmptyPolynomials_GetCoefficient_ResultMustBeNull()
         {
             // arrange
             var first = new Polynomial();
@@ -347,24 +310,24 @@ namespace PolynomTests
             var result = first.GetCoefficient(0);
 
             // assert
-            Assert.IsTrue(result == null);
+            Assert.IsNull(result);
         }
 
         [Test]
-        public void Polynomials_GetCoeficients_ResultMustBeZeroDegree()
+        public void Polynomials_GetCoefficient_ResultMustBeCoefficientZeroDegree()
         {
             // arrange
-            var first = new Polynomial(0, 2, 5, 3);
+            var first = new Polynomial(7, 2, 5, 3);
 
             // action
             var result = first.GetCoefficient(0);
 
             // assert
-            Assert.IsTrue(result == 0);
+            Assert.AreEqual(7, result);
         }
 
         [Test]
-        public void Polynomials_GetCoeficients_ResultMustBeNull()
+        public void Polynomials_GetCoefficient_ResultMustBeNull()
         {
             // arrange
             var first = new Polynomial(0, 2, 5, 3);
@@ -373,7 +336,7 @@ namespace PolynomTests
             var result = first.GetCoefficient(4);
 
             // assert
-            Assert.IsTrue(result == null);
+            Assert.IsNull(result);
         }
 
         [Test]
@@ -387,7 +350,7 @@ namespace PolynomTests
             var result = a.Calculate(x);
 
             // assert 
-            Assert.IsTrue(result == 1);
+            Assert.AreEqual(1, result);
         }
 
         [Test]
@@ -401,11 +364,11 @@ namespace PolynomTests
             var result = a.Calculate(x);
 
             // assert 
-            Assert.IsTrue(result == 36);
+            Assert.AreEqual(36, result);
         }
 
         [Test]
-        public void EpsilonIsZero_FindRoot_ResultMustBeExeption()
+        public void EpsilonIsZero_FindRoot_ResultMustBeException()
         {
             // arrange
             var a = 0;
@@ -434,7 +397,7 @@ namespace PolynomTests
             var result = first.FindRoot(a, b, eps);
 
             // assert
-            Assert.IsTrue(result == null);
+            Assert.IsNull(result);
         }
 
         [Test]
@@ -450,7 +413,7 @@ namespace PolynomTests
             var result = first.FindRoot(a, b, eps);
 
             // assert
-            Assert.IsTrue(result == null);
+            Assert.IsNull(result);
         }
 
         [Test]
@@ -466,7 +429,7 @@ namespace PolynomTests
             var result = first.FindRoot(a, b, eps);
 
             // assert
-            Assert.IsTrue(result == 0.34739);
+            Assert.AreEqual(0.34739, result);
         }
 
         [Test]
@@ -481,7 +444,7 @@ namespace PolynomTests
             var result = first.FindRoot(b, b, eps);
 
             // assert
-            Assert.IsTrue(result == null);
+            Assert.IsNull(result);
         }
 
         [Test]
@@ -495,7 +458,7 @@ namespace PolynomTests
             var result = first.CalculatePolynomialSeveralVariables(atributs);
 
             // assert
-            Assert.IsTrue(result.SequenceEqual(new List<double> { 0, 0, 0 }));
+            Assert.AreEqual(new List<double> { 0, 0, 0 }, result);
         }
 
         [Test]
@@ -509,7 +472,7 @@ namespace PolynomTests
             var result = first.CalculatePolynomialSeveralVariables(atributs);
 
             // assert
-            Assert.IsTrue(result.SequenceEqual(new List<double> { 3, 33.24, 43 }));
+            Assert.AreEqual(new List<double> { 3, 33.24, 43 }, result);
         }
 
         [Test]
@@ -523,7 +486,7 @@ namespace PolynomTests
             var result = first.ToString();
 
             // assert
-            Assert.IsTrue(result.SequenceEqual(a));
+            Assert.AreEqual(a, result);
         }
 
         [Test]
@@ -537,7 +500,7 @@ namespace PolynomTests
             var result = first.ToString();
 
             // assert
-            Assert.IsTrue(result.SequenceEqual(a));
+            Assert.AreEqual(a, result);
         }
 
         [Test]
