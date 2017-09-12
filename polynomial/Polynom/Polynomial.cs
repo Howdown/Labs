@@ -304,7 +304,7 @@
             var representationPolynomial = string.Empty;
             for (var i = this.coefficients.Count - 1; i >= 0; i--)
             {
-                if (this.coefficients[i].Eq(0))
+                if (this.coefficients[i].NotEq(0))
                 {
                     if (i > 1)
                     {

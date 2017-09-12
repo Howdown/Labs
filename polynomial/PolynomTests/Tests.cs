@@ -100,9 +100,9 @@ namespace PolynomTests
         public void TwoPolynomialsDifferentLength_Adding_ResultMustSumTwoPolynomials()
         {
             // arrange
-            var first = new Polynomial(5, 5, 3, 0, 5);
-            var second = new Polynomial(0, 1, 7, 5);
-            var comparison = new Polynomial(5, 6, 10, 5, 5);
+            var first = new Polynomial(5, 5.1, 3.5, 0, 5);
+            var second = new Polynomial(0, 1.8, 7, 5);
+            var comparison = new Polynomial(5, 6.9, 10.5, 5, 5);
 
             // action
             var resultFirst = first + second;
@@ -184,9 +184,9 @@ namespace PolynomTests
             FirstPolynomialWithNegativCoefficientsAndSecondPolynomialWithNegativCoeficientsSameOrder_Difference_ResultMustBeDifferencePolynomials()
         {
             // arrange
-            var first = new Polynomial(1, 5, -7, -3, 5);
-            var second = new Polynomial(4, 3, -8, 1, -2);
-            var resultDifference = new Polynomial(-3, 2, 1, -4, 7);
+            var first = new Polynomial(1, 5.4, -7, -3, 5);
+            var second = new Polynomial(4, 3.6, -8, 1, -2);
+            var resultDifference = new Polynomial(-3, 1.8, 1, -4, 7);
 
             // action
             var result = first - second;
@@ -323,7 +323,7 @@ namespace PolynomTests
             var result = first.GetCoefficient(0);
 
             // assert
-            Assert.AreEqual(7, result);
+            Assert.AreEqual(7, result, 0.0001);
         }
 
         [Test]
@@ -343,14 +343,14 @@ namespace PolynomTests
         public void PolynomialAndZeroArgument_Calculate_ResultMustBeOne()
         {
             // arrange
-            var a = new Polynomial(1, 2, 5, 0);
+            var a = new Polynomial(1, 2.5, 5, 0);
             var x = 0;
 
             // action 
             var result = a.Calculate(x);
 
             // assert 
-            Assert.AreEqual(1, result);
+            Assert.AreEqual(1, result, 0.0001);
         }
 
         [Test]
@@ -364,7 +364,7 @@ namespace PolynomTests
             var result = a.Calculate(x);
 
             // assert 
-            Assert.AreEqual(36, result);
+            Assert.AreEqual(36, result, 0.0001);
         }
 
         [Test]
@@ -429,7 +429,7 @@ namespace PolynomTests
             var result = first.FindRoot(a, b, eps);
 
             // assert
-            Assert.AreEqual(0.34739, result);
+            Assert.AreEqual(0.34739, result, 0.000001);
         }
 
         [Test]
@@ -527,6 +527,98 @@ namespace PolynomTests
 
             // assert
             Assert.IsTrue(result.Compare(new Polynomial(2, 5, -9, 0, 0, 6)));
+        }
+
+        [Test]
+        public void TwoDoubleNumbersAndInaccuracy_Compare_ResultMustBeInequality()
+        {
+            var left = 2.5;
+            var right = 2.50001;
+            var epsilon = 0.000001;
+
+            var result = left.Eq(right, epsilon);
+
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void TwoDoubleNumbersAndInaccuracy_Compare_ResultMustBeEquality()
+        {
+            var left = 2.5;
+            var right = 2.50001;
+            var epsilon = 0.001;
+
+            var result = left.Eq(right, epsilon);
+
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void TwoDoubleNumbersWithoutInaccuracy_Compare_ResultMustBeEquality()
+        {
+            var left = 2.5;
+            var right = 2.5000001;
+
+            var result = left.Eq(right);
+
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void TwoDoubleNumbersWithoutInaccuracy_Compare_ResultMustBeInequality()
+        {
+            var left = 2.5;
+            var right = 2.501;
+
+            var result = left.Eq(right);
+
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void TwoDoubleNumbersAndInaccuracy_CheckInequality_ResultMustBeInequality()
+        {
+            var left = 2.5;
+            var right = 2.50001;
+            var epsilon = 0.000001;
+
+            var result = left.NotEq(right, epsilon);
+
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void TwoDoubleNumbersAndInaccuracy_CheckInequality_ResultMustBeEquality()
+        {
+            var left = 2.5;
+            var right = 2.50001;
+            var epsilon = 0.001;
+
+            var result = left.NotEq(right, epsilon);
+
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void TwoDoubleNumbersWithoutInaccuracy_CheckInequality_ResultMustBeEquality()
+        {
+            var left = 2.5;
+            var right = 2.5000001;
+
+            var result = left.NotEq(right);
+
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void TwoDoubleNumbersWithoutInaccuracy_CheckInequality_ResultMustBeInequality()
+        {
+            var left = 2.5;
+            var right = 2.501;
+
+            var result = left.NotEq(right);
+
+            Assert.IsTrue(result);
         }
     }
 }
