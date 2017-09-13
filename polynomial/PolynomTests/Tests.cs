@@ -301,6 +301,59 @@ namespace PolynomTests
         }
 
         [Test]
+        public void OnePolynomialIsNull_ComparePolynomials_ResultMustBeException()
+        {
+            // arrange
+            var first = new Polynomial(1, 2, 3.4);
+            Polynomial second = null;
+
+            // assert
+            Assert.Throws<ArgumentNullException>(
+                () =>
+                    {
+                        var result = first.Compare(second);
+                    });
+        }
+
+        [Test]
+        public void TwoEmptyPolynomials_ComparePolynomials_ResultMustBeTrue()
+        {
+            // arrange
+            var first = new Polynomial();
+            var second = new Polynomial();
+
+            // assert
+            Assert.IsTrue(first.Compare(second));
+        }
+
+        [Test]
+        public void OneEmptyPolynomials_ComparePolynomials_ResultMustBeTrue()
+        {
+            // arrange
+            var first = new Polynomial(1.2, 0.25, 2.56);
+            var second = new Polynomial();
+
+            // assert
+            Assert.Multiple(
+                () =>
+                    {
+                        Assert.IsFalse(first.Compare(second));
+                        Assert.IsFalse(second.Compare(first));
+                    });
+        }
+
+        [Test]
+        public void TwoSamePolynomials_ComparePolynomials_ResultMustBeTrue()
+        {
+            // arrange
+            var first = new Polynomial(1.2, -0.25, 2.56, 5, -1);
+            var second = new Polynomial(1.2, -0.25, 2.56, 5, -1);
+
+            // assert
+            Assert.IsTrue(first.Compare(second));
+        }
+
+        [Test]
         public void EmptyPolynomials_GetCoefficient_ResultMustBeNull()
         {
             // arrange
@@ -542,7 +595,7 @@ namespace PolynomTests
         }
 
         [Test]
-        public void TwoDoubleNumbersAndInaccuracy_Compare_ResultMustBeEquality()
+        public void TwoDoubleNumbersAndInaccuracy_CompareDoubleNumber_ResultMustBeEquality()
         {
             var left = 2.5;
             var right = 2.50001;

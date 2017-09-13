@@ -104,7 +104,7 @@
                 {
                     while (admissibility == false)
                     {
-                        if (coefficient.Eq(0))
+                        if (coefficient.NotEq(0))
                         {
                             admissibility = true;
                         }

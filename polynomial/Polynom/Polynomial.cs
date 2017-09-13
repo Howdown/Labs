@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
 
     /// <summary>
@@ -246,7 +247,24 @@
                 throw new ArgumentNullException(nameof(secondPolynomial));
             }
 
-            return this.coefficients.SequenceEqual(secondPolynomial.coefficients);
+            var equal = true;
+            if (this.coefficients.Count == secondPolynomial.coefficients.Count)
+            {
+                for (var i = 0; i < this.coefficients.Count; i++)
+                {
+                    if (this.coefficients[i].NotEq(secondPolynomial.coefficients[i]))
+                    {
+                        equal = false;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                equal = false;
+            }
+
+            return equal;
         }
 
         public double Calculate(double powerFactor)
@@ -323,7 +341,7 @@
                 {
                     if (i > 1)
                     {
-                            representationPolynomial += "(" + this.coefficients[i] + "x^" + i + ") + ";
+                        representationPolynomial += "(" + this.coefficients[i] + "x^" + i + ") + ";
                     }
                     else if (i == 1)
                     {
