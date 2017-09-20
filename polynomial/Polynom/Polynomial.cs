@@ -247,24 +247,20 @@
                 throw new ArgumentNullException(nameof(secondPolynomial));
             }
 
-            var equal = true;
-            if (this.coefficients.Count == secondPolynomial.coefficients.Count)
+            if (this.coefficients.Count != secondPolynomial.coefficients.Count)
             {
-                for (var i = 0; i < this.coefficients.Count; i++)
+                return false;
+            }
+
+            for (var i = 0; i < this.coefficients.Count; i++)
                 {
                     if (this.coefficients[i].NotEq(secondPolynomial.coefficients[i]))
                     {
-                        equal = false;
-                        break;
+                        return false;
                     }
                 }
-            }
-            else
-            {
-                equal = false;
-            }
 
-            return equal;
+            return true;
         }
 
         public double Calculate(double powerFactor)
