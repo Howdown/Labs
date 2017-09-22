@@ -14,7 +14,7 @@ namespace FunctionInTheConsoleTests
             var variableSinus = new Sinus();
 
 
-            Assert.AreEqual(0, variableSinus.Calculate(0));
+            Assert.Zero(variableSinus.Calculate(0));
         }
 
         [Test]
