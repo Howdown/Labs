@@ -5,55 +5,58 @@
 
     public class LinearFunction : FunctionBase
     {
-        private List<double> coefficients;
+        private double firstArgument;
 
-        public LinearFunction(List<double> coefficients)
-        {
-            this.coefficients = coefficients;
-        }
+        private double secondArgument;
 
-        public LinearFunction()
+        public LinearFunction(double first, double second)
         {
-            this.coefficients = new List<double>();
+            this.firstArgument = first;
+            this.secondArgument = second;
         }
 
         public override FunctionBase GetDerivative()
         {
-            var derivative = new LinearFunction();
-            derivative.coefficients.Add(this.coefficients[1]);
+            var derivative = new LinearFunction(this.firstArgument, 0);
             return derivative;
         }
 
         public override double Calculate(double value)
         {
-            var result = this.coefficients[0];
-            result += this.coefficients[1] * value;
+            var result = this.secondArgument;
+            result += this.firstArgument * value;
             return result;
         }
 
         public override string ToString()
         {
-            string linearFunction;
-            if (this.coefficients.Count < 1)
+            if (this.firstArgument == 0 && this.secondArgument == 0)
             {
-                throw new ArgumentException("Linear function cannot be empty");
+                return "0";
             }
 
-            if (this.coefficients.Count < 2)
+                string linearFunction;
+            if (this.firstArgument == 0)
             {
-                linearFunction = $"{this.coefficients[0]}";
+                linearFunction = $"{this.secondArgument}";
                 return linearFunction;
             }
 
-             linearFunction = $"{this.coefficients[1]}" + "x";
-            if (this.coefficients[0] > 0)
+            if (this.secondArgument == 0)
             {
-                linearFunction += " + " + $"{this.coefficients[0]}";
+                linearFunction = $"{this.firstArgument}x";
+                return linearFunction;
             }
 
-            if (this.coefficients[0] < 0)
+            linearFunction = $"{this.firstArgument}x";
+            if (this.secondArgument > 0)
             {
-                linearFunction += $"{this.coefficients[0]}";
+                linearFunction += $" +{this.secondArgument}";
+            }
+
+            if (this.secondArgument < 0)
+            {
+                linearFunction += $" {this.secondArgument}";
             }
 
             return linearFunction;

@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PowerFunctionTests.cs" />
     <Compile Include="LinearTests.cs" />
     <Compile Include="CosineTests.cs" />
     <Compile Include="SinusTests.cs" />

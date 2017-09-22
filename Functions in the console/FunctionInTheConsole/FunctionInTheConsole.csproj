@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PowerFunction.cs" />
     <Compile Include="LinearFunction.cs" />
     <Compile Include="Cosine.cs" />
     <Compile Include="DoubleExtensionMethods.cs" />
