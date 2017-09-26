@@ -43,10 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PowerFunctionTests.cs" />
-    <Compile Include="LinearTests.cs" />
-    <Compile Include="CosineTests.cs" />
-    <Compile Include="SinusTests.cs" />
+    <Compile Include="FunctionsTests\PowerFunctionTests.cs" />
+    <Compile Include="FunctionsTests\LinearFunctionTests.cs" />
+    <Compile Include="FunctionsTests\CosineFunctionTests.cs" />
+    <Compile Include="FunctionsTests\SinusFunctionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -55,5 +55,6 @@
       <Name>FunctionInTheConsole</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -5,14 +5,15 @@ namespace FunctionInTheConsoleTests
     using System.Collections.Generic;
 
     using FunctionInTheConsole;
+    using FunctionInTheConsole.Functions;
 
     using NUnit.Framework;
 
     [TestFixture]
-    public class LinearTests
+    public class LinearFunctionTests
     {
         [Test]
-        public void TwoArgumentisZero_Calculate_ResultMustBeZero()
+        public void TwoArgumentsAreZero_Calculate_ResultMustBeZero()
         {
             var coefficientsLinearFunction = new LinearFunction(0, 0);
 
@@ -26,19 +27,19 @@ namespace FunctionInTheConsoleTests
             var coefficientsLinearFunction = new LinearFunction(-3.1, 2.1);
 
 
-            Assert.IsTrue(coefficientsLinearFunction.Calculate(0).Eq(2.1));
+            Assert.AreEqual(coefficientsLinearFunction.Calculate(0), 2.1, 0.1);
         }
 
         [Test]
-        public void VariableIsNegative_Calculate_ResulMustBeNumber()
+        public void VariableIsNegative_Calculate_ResultMustBeNumber()
         {
             var coefficientsLinearFunction = new LinearFunction(3.6, 2.9);
 
-            Assert.IsTrue(coefficientsLinearFunction.Calculate(-2).Eq(-4.3));
+            Assert.AreEqual(coefficientsLinearFunction.Calculate(-2), -4.3, 0.1);
         }
 
         [Test]
-        public void TwoArgumentIsZero_GetDerivative_ResultMustBeZero()
+        public void TwoArgumentAreZero_GetDerivative_ResultMustBeZero()
         {
             var coefficientsLinearFunction = new LinearFunction(0, 0);
             var result = coefficientsLinearFunction.GetDerivative();
@@ -84,7 +85,7 @@ namespace FunctionInTheConsoleTests
         }
 
         [Test]
-        public void ArgumentsOfNegative_ToString_ResultMustBeNumber()
+        public void ArgumentsAreNegative_ToString_ResultMustBeNumber()
         {
             var coefficientsLinearFunction = new LinearFunction(-3, -2.3);
 
@@ -93,7 +94,7 @@ namespace FunctionInTheConsoleTests
         }
 
         [Test]
-        public void TwoArgumentsIsZero_ToString_ResultMustBeExeption()
+        public void TwoArgumentsAreZero_ToString_ResultMustBeZero()
         {
             var coefficientsLinearFunction = new LinearFunction(0, 0);
 

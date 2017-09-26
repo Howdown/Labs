@@ -1,4 +1,4 @@
-﻿namespace FunctionInTheConsole
+﻿namespace FunctionInTheConsole.Functions
 {
     public abstract class FunctionBase
     {

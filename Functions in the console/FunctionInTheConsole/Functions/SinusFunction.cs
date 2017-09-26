@@ -1,12 +1,12 @@
-﻿namespace FunctionInTheConsole
+﻿namespace FunctionInTheConsole.Functions
 {
     using System;
 
-    public class Sinus : FunctionBase
+    public class SinusFunction : FunctionBase
     {
         public override FunctionBase GetDerivative()
         {
-            var derivative = new Cosine();
+            var derivative = new CosineFunction();
             return derivative;
         }
 

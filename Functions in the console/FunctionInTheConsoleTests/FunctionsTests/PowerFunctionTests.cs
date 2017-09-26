@@ -1,7 +1,8 @@
 ﻿// ReSharper disable InconsistentNaming
-namespace FunctionInTheConsoleTests
+namespace FunctionInTheConsoleTests.FunctionsTests
 {
     using FunctionInTheConsole;
+    using FunctionInTheConsole.Functions;
 
     using NUnit.Framework;
 

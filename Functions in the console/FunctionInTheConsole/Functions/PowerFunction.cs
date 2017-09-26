@@ -1,18 +1,17 @@
 ﻿
-namespace FunctionInTheConsole
+namespace FunctionInTheConsole.Functions
 {
     using System;
-    using System.Collections.Generic;
 
     public class PowerFunction : FunctionBase
     {
-        private double degree;
+        private readonly double degree;
 
         private double multiplier;
 
         public PowerFunction(double degree)
         {
-            if (degree == 0)
+            if (degree.Eq(0))
             {
                 this.degree = 0;
                 this.multiplier = 0;
@@ -26,7 +25,7 @@ namespace FunctionInTheConsole
 
         public override FunctionBase GetDerivative()
         {
-            if (this.degree == 0)
+            if (Math.Abs(this.degree) < 0.000001)
             {
                 var derivativeZero = new PowerFunction(0);
                 return derivativeZero;
@@ -45,19 +44,19 @@ namespace FunctionInTheConsole
 
         public override string ToString()
         {
-            if (this.degree == 0 && this.multiplier == 0)
+            if (Math.Abs(this.degree) < 0.000001 && Math.Abs(this.multiplier) < 0.000001)
             {
                 return "0";
             }
 
             string powerFunction;
-            if (this.degree == 0)
+            if (Math.Abs(this.degree) < 0.000001)
             {
                 powerFunction = $"{this.multiplier}";
                 return powerFunction;
             }
 
-            if (this.multiplier == 1)
+            if (this.multiplier.Eq(1))
             {
                 powerFunction = $"x^{this.degree}";
                 return powerFunction;

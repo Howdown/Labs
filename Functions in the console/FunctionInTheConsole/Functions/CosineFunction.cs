@@ -1,18 +1,18 @@
-﻿namespace FunctionInTheConsole
+﻿namespace FunctionInTheConsole.Functions
 {
     using System;
 
-    public class Cosine : FunctionBase
+    public class CosineFunction : FunctionBase
     {
         public override FunctionBase GetDerivative()
         {
-            var derivative = new Sinus();
+            var derivative = new SinusFunction();
             return derivative;
         }
 
         public override double Calculate(double value)
         {
-            var result = Math.Round(Math.Cos(value), 3);
+            var result = Math.Cos(value);
             return result;
         }
 
