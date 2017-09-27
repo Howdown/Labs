@@ -47,6 +47,7 @@
     <Compile Include="FunctionsTests\LinearFunctionTests.cs" />
     <Compile Include="FunctionsTests\CosineFunctionTests.cs" />
     <Compile Include="FunctionsTests\SinusFunctionTests.cs" />
+    <Compile Include="FunctionStorageTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

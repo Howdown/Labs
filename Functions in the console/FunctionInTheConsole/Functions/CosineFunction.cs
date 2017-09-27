@@ -4,21 +4,10 @@
 
     public class CosineFunction : FunctionBase
     {
-        public override FunctionBase GetDerivative()
-        {
-            var derivative = new SinusFunction();
-            return derivative;
-        }
+        public override double Calculate(double value) => Math.Cos(value);
 
-        public override double Calculate(double value)
-        {
-            var result = Math.Cos(value);
-            return result;
-        }
+        public override FunctionBase GetDerivative() => new SinusFunction();
 
-        public override string ToString()
-        {
-            return "cos(x)";
-        }
+        public override string ToString() => "cos(x)";
     }
 }

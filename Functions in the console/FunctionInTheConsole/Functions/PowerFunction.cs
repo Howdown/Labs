@@ -1,5 +1,4 @@
-﻿
-namespace FunctionInTheConsole.Functions
+﻿namespace FunctionInTheConsole.Functions
 {
     using System;
 
@@ -23,12 +22,13 @@ namespace FunctionInTheConsole.Functions
             }
         }
 
+        public override double Calculate(double value) => Math.Pow(value * this.multiplier, this.degree);
+
         public override FunctionBase GetDerivative()
         {
             if (Math.Abs(this.degree) < 0.000001)
             {
-                var derivativeZero = new PowerFunction(0);
-                return derivativeZero;
+                return new PowerFunction(0);
             }
 
             var derivative = new PowerFunction(this.degree - 1);
@@ -36,34 +36,24 @@ namespace FunctionInTheConsole.Functions
             return derivative;
         }
 
-        public override double Calculate(double value)
-        {
-            var result = Math.Round(Math.Pow(value * this.multiplier, this.degree), 4);
-            return result;
-        }
-
         public override string ToString()
         {
-            if (Math.Abs(this.degree) < 0.000001 && Math.Abs(this.multiplier) < 0.000001)
+            if (this.degree.Eq(0) && this.multiplier.Eq(0))
             {
                 return "0";
             }
 
-            string powerFunction;
-            if (Math.Abs(this.degree) < 0.000001)
+            if (this.degree.Eq(0))
             {
-                powerFunction = $"{this.multiplier}";
-                return powerFunction;
+                return $"{this.multiplier}";
             }
 
             if (this.multiplier.Eq(1))
             {
-                powerFunction = $"x^{this.degree}";
-                return powerFunction;
+                return $"x^{this.degree}";
             }
 
-            powerFunction = $"{this.multiplier}x^{this.degree}";
-            return powerFunction;
+            return $"{this.multiplier}x^{this.degree}";
         }
     }
 }

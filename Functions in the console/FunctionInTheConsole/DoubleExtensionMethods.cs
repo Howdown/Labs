@@ -8,14 +8,12 @@
 
         public static bool Eq(this double numberLeft, double numberRight, double epsilon = Inaccuracy)
         {
-            var equality = Math.Abs(numberLeft - numberRight) < epsilon;
-            return equality;
+            return Math.Abs(numberLeft - numberRight) < epsilon;
         }
 
         public static bool NotEq(this double numberLeft, double numberRight, double epsilon = Inaccuracy)
         {
-            var equality = !numberLeft.Eq(numberRight, epsilon);
-            return equality;
+            return !numberLeft.Eq(numberRight, epsilon);
         }
     }
 }

@@ -14,12 +14,6 @@
             this.secondArgument = second;
         }
 
-        public override FunctionBase GetDerivative()
-        {
-            var derivative = new LinearFunction(this.firstArgument, 0);
-            return derivative;
-        }
-
         public override double Calculate(double value)
         {
             var result = this.secondArgument;
@@ -27,26 +21,26 @@
             return result;
         }
 
+        public override FunctionBase GetDerivative() => new LinearFunction(this.firstArgument, 0);
+
         public override string ToString()
         {
-            if (Math.Abs(this.firstArgument) < 0.000001 && Math.Abs(this.secondArgument) < 0.000001)
+            if (this.firstArgument.Eq(0) && this.secondArgument.Eq(0))
             {
                 return "0";
             }
 
-                string linearFunction;
-            if (Math.Abs(this.firstArgument) < 0.000001)
+            if (this.firstArgument.Eq(0))
             {
-                linearFunction = $"{this.secondArgument}";
-                return linearFunction;
+                return $"{this.secondArgument}";
             }
 
-            if (Math.Abs(this.secondArgument) < 0.000001)
+            if (this.secondArgument.Eq(0))
             {
                 return $"{this.firstArgument}x";
             }
 
-            linearFunction = $"{this.firstArgument}x";
+            var linearFunction = $"{this.firstArgument}x";
             if (this.secondArgument > 0)
             {
                 linearFunction += $" +{this.secondArgument}";
@@ -54,7 +48,7 @@
 
             if (this.secondArgument < 0)
             {
-                var s = linearFunction += $" {this.secondArgument}";
+                linearFunction += $" {this.secondArgument}";
             }
 
             return linearFunction;

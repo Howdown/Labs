@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FunctionsStorage.cs" />
     <Compile Include="Functions\PowerFunction.cs" />
     <Compile Include="Functions\LinearFunction.cs" />
     <Compile Include="Functions\CosineFunction.cs" />
