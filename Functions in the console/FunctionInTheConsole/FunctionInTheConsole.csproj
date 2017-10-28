@@ -40,12 +40,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\AddPowerFunctionBuilder.cs" />
+    <Compile Include="Builders\AddCosineFunctionBuilder.cs" />
+    <Compile Include="Builders\AddSinusFunctionBuilder.cs" />
+    <Compile Include="Command\PrintFunctionCommand.cs" />
+    <Compile Include="Command\GetDerivativeFunctionCommand.cs" />
+    <Compile Include="Command\DeleteFunctionCommand.cs" />
+    <Compile Include="Command\CalculateFunctionCommand.cs" />
+    <Compile Include="Command\AddFunctionCommand.cs" />
+    <Compile Include="Command\ICommand.cs" />
+    <Compile Include="Builders\ICommandBuilder.cs" />
+    <Compile Include="Builders\AddLinearFunctionBuilder.cs" />
+    <Compile Include="Builders\CalculateFunctionBuilder.cs" />
+    <Compile Include="Builders\DeleteFunctionBuilder.cs" />
     <Compile Include="FunctionsStorage.cs" />
     <Compile Include="Functions\PowerFunction.cs" />
     <Compile Include="Functions\LinearFunction.cs" />
     <Compile Include="Functions\CosineFunction.cs" />
     <Compile Include="DoubleExtensionMethods.cs" />
     <Compile Include="Functions\FunctionBase.cs" />
+    <Compile Include="Builders\GetDerivativeFunctionBuilder.cs" />
+    <Compile Include="Interpreter.cs" />
+    <Compile Include="Builders\PrintFunctionBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Functions\SinusFunction.cs" />
   </ItemGroup>

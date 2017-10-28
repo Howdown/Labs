@@ -1,7 +1,5 @@
 ﻿namespace FunctionInTheConsole.Functions
 {
-    using System;
-
     public class LinearFunction : FunctionBase
     {
         private readonly double firstArgument;
