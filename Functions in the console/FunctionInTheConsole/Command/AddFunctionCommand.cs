@@ -16,7 +16,7 @@
 
         public string Apply(FunctionsStorage storage)
         {
-            if (storage.CheckForRepeatability(this.nameFunction))
+            if (storage.ContainsFunctions(this.nameFunction))
             {
                 return "error";
             }

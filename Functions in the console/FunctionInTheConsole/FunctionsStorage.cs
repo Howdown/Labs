@@ -26,7 +26,7 @@
 
         public FunctionBase GetDerivativeFunction(string name) => this.functions[name].GetDerivative();
 
-        public bool CheckForRepeatability(string name)
+        public bool ContainsFunctions(string name)
         {
             return !this.functions.ContainsKey(name);
         }

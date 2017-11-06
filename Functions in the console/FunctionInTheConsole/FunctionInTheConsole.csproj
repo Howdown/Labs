@@ -40,9 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\AddDerivativeInStoregeBuilder.cs" />
     <Compile Include="Builders\AddPowerFunctionBuilder.cs" />
     <Compile Include="Builders\AddCosineFunctionBuilder.cs" />
     <Compile Include="Builders\AddSinusFunctionBuilder.cs" />
+    <Compile Include="Command\AddDerivativeCommand.cs" />
     <Compile Include="Command\PrintFunctionCommand.cs" />
     <Compile Include="Command\GetDerivativeFunctionCommand.cs" />
     <Compile Include="Command\DeleteFunctionCommand.cs" />

@@ -13,7 +13,7 @@
 
         public string Apply(FunctionsStorage storage)
         {
-            if (!storage.CheckForRepeatability(this.name))
+            if (!storage.ContainsFunctions(this.name))
             {
                 return "error";
             }
