@@ -16,6 +16,7 @@
 
         public CommandResult Apply(FunctionsStorage storage)
         {
+<<<<<<< HEAD
             CommandResult resultMessage;
             if (storage.ContainsFunctions(this.nameFunction))
             {
@@ -28,6 +29,15 @@
             }
 
             return resultMessage;
+=======
+            var identifier = storage.ContainsFunctions(this.nameFunction);
+            var resultMessage = new CommandResult(identifier);
+            if (!identifier)
+            {
+                storage.AddFunction(this.nameFunction, this.function);
+            }
+            
+>>>>>>> Labs/master
         }
     }
 }
