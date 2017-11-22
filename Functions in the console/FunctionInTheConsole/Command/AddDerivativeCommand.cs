@@ -12,7 +12,7 @@
             this.nameFunction = nameFunction;
         }
 
-        public string Apply(FunctionsStorage storage)
+        public CommandResult Apply(FunctionsStorage storage)
         {
             if (storage.ContainsFunctions(this.nameFunction) && !storage.ContainsFunctions(this.nameDerivative))
             {

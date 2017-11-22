@@ -9,7 +9,7 @@
             this.name = name;
         }
 
-        public string Apply(FunctionsStorage storage)
+        public CommandResult Apply(FunctionsStorage storage)
         {
             if (!storage.ContainsFunctions(this.name))
             {

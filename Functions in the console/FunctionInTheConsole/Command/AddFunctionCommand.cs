@@ -14,15 +14,15 @@
             this.function = function;
         }
 
-        public string Apply(FunctionsStorage storage)
+        public CommandResult Apply(FunctionsStorage storage)
         {
-            if (storage.ContainsFunctions(this.nameFunction))
+            var identifier = storage.ContainsFunctions(this.nameFunction);
+            var resultMessage = new CommandResult(identifier);
+            if (!identifier)
             {
-                return "error";
+                storage.AddFunction(this.nameFunction, this.function);
             }
-
-            storage.AddFunction(this.nameFunction, this.function);
-            return "success";
+            
         }
     }
 }
