@@ -2,6 +2,6 @@
 {
     public interface ICommand
     {
-        string Apply(FunctionsStorage storage);
+        CommandResult Apply(FunctionsStorage storage);
     }
 }

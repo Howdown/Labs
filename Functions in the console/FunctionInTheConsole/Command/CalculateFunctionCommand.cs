@@ -11,14 +11,11 @@
             this.argument = argument;
         }
 
-        public string Apply(FunctionsStorage storage)
+        public CommandResult Apply(FunctionsStorage storage)
         {
-            if (!storage.ContainsFunctions(this.name))
-            {
-                return "error";
-            }
-
-            return storage.CalculateFunction(this.name, this.argument).ToString();
+            var resultMessage = storage.ContainsFunctions(this.name) ? new CommandResult(true, storage.CalculateFunction(this.name, this.argument).ToString()) 
+                : new CommandResult(false, "Function with this name is missing");
+            return resultMessage;
         }
     }
 }

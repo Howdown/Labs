@@ -11,15 +11,20 @@
             this.name = name;
         }
 
-        public string Apply(FunctionsStorage storage)
+        public CommandResult Apply(FunctionsStorage storage)
         {
-            if (!storage.ContainsFunctions(this.name))
+            CommandResult resultMessage;
+            if (storage.ContainsFunctions(this.name))
             {
-                return "error";
+                resultMessage = new CommandResult(true);
+                storage.DeleteFunction(this.name);
+            }
+            else
+            {
+                resultMessage = new CommandResult(false, "Function with this name is missing");
             }
 
-            storage.DeleteFunction(this.name);
-            return "success";
+            return resultMessage;
         }
     }
 }

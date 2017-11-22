@@ -14,15 +14,20 @@
             this.function = function;
         }
 
-        public string Apply(FunctionsStorage storage)
+        public CommandResult Apply(FunctionsStorage storage)
         {
+            CommandResult resultMessage;
             if (storage.ContainsFunctions(this.nameFunction))
             {
-                return "error";
+                resultMessage = new CommandResult(false, "Function with the same name already exists");
+            }
+            else
+            {
+                resultMessage = new CommandResult(true);
+                storage.AddFunction(this.nameFunction, this.function);
             }
 
-            storage.AddFunction(this.nameFunction, this.function);
-            return "success";
+            return resultMessage;
         }
     }
 }

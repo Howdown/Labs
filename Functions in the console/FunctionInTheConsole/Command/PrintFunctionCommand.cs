@@ -9,14 +9,11 @@
             this.name = name;
         }
 
-        public string Apply(FunctionsStorage storage)
+        public CommandResult Apply(FunctionsStorage storage)
         {
-            if (!storage.ContainsFunctions(this.name))
-            {
-                return "error";
-            }
-
-            return storage.GetFunction(this.name).ToString();
+            var resultMessage = storage.ContainsFunctions(this.name) ? new CommandResult(true, storage.GetFunction(this.name).ToString())
+                : new CommandResult(false, "Function with this name is missing");
+            return resultMessage;
         }
     }
 }

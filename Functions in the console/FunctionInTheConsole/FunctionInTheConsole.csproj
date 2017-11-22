@@ -44,6 +44,7 @@
     <Compile Include="Builders\AddPowerFunctionBuilder.cs" />
     <Compile Include="Builders\AddCosineFunctionBuilder.cs" />
     <Compile Include="Builders\AddSinusFunctionBuilder.cs" />
+    <Compile Include="Command\CommandResult.cs" />
     <Compile Include="Command\AddDerivativeCommand.cs" />
     <Compile Include="Command\PrintFunctionCommand.cs" />
     <Compile Include="Command\GetDerivativeFunctionCommand.cs" />

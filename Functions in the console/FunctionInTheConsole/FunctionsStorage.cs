@@ -28,7 +28,7 @@
 
         public bool ContainsFunctions(string name)
         {
-            return !this.functions.ContainsKey(name);
+            return this.functions.ContainsKey(name);
         }
 
         public FunctionBase GetFunction(string name)
