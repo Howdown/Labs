@@ -1,6 +1,7 @@
 ﻿namespace FunctionInTheConsole
 {
     using System.Collections.Generic;
+
     using FunctionInTheConsole.Functions;
 
     public class FunctionsStorage

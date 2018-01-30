@@ -14,13 +14,6 @@
 
         public CommandResult Apply(FunctionsStorage storage)
         {
-            /* if (storage.ContainsFunctions(this.nameFunction) && !storage.ContainsFunctions(this.nameDerivative))
-             {
-                 var derivative = storage.GetDerivativeFunction(this.nameFunction);
-                 storage.AddFunction(this.nameDerivative, derivative);
-             }
-
-             return "error";*/
             CommandResult resultMessage;
             if (storage.ContainsFunctions(this.nameFunction))
             {
@@ -39,6 +32,7 @@
             {
                 resultMessage = new CommandResult(false, "Function with this name is missing");
             }
+
             return resultMessage;
         }
     }

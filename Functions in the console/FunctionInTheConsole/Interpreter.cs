@@ -21,9 +21,5 @@
                 [@"^print \w+$"] = () => new PrintFunctionBuilder(),
             };
 
-        public void SearchMatching(string comand)
-        {
-            
-        }
     }
 }
