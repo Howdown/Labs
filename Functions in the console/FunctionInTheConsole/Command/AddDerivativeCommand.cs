@@ -1,6 +1,6 @@
 ﻿namespace FunctionInTheConsole.Command
 {
-    public class AddDerivativeCommand : ICommand
+    public class AddDerivativeCommand : CommandResultHelper
     {
         private readonly string nameFunction;
 
@@ -14,26 +14,19 @@
 
         public CommandResult Apply(FunctionsStorage storage)
         {
-            CommandResult resultMessage;
-            if (storage.ContainsFunctions(this.nameFunction))
+            if (!storage.ContainsFunctions(this.nameFunction))
             {
-                if (storage.ContainsFunctions(this.nameDerivative))
-                {
-                    resultMessage = new CommandResult(false, "Function with the same name already exists");
-                }
-                else
-                {
-                    var derivative = storage.GetDerivativeFunction(this.nameFunction);
-                    storage.AddFunction(this.nameDerivative, derivative);
-                    resultMessage = new CommandResult(true);
-                }
-            }
-            else
-            {
-                resultMessage = new CommandResult(false, "Function with this name is missing");
+                return this.Failure("Function with this name is missing");
             }
 
-            return resultMessage;
+            if (storage.ContainsFunctions(this.nameDerivative))
+            {
+                return this.Failure("Function with the same name already exists");
+            }
+
+            var derivative = storage.GetDerivativeFunction(this.nameFunction);
+            storage.AddFunction(this.nameDerivative, derivative);
+            return this.Success();
         }
     }
 }

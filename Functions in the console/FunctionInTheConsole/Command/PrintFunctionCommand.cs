@@ -1,6 +1,6 @@
 ﻿namespace FunctionInTheConsole.Command
 {
-    internal class PrintFunctionCommand : ICommand
+    internal class PrintFunctionCommand : CommandResultHelper
     {
         private readonly string name;
 
@@ -11,9 +11,8 @@
 
         public CommandResult Apply(FunctionsStorage storage)
         {
-            var resultMessage = storage.ContainsFunctions(this.name) ? new CommandResult(true, storage.GetFunction(this.name).ToString())
-                : new CommandResult(false, "Function with this name is missing");
-            return resultMessage;
+            return storage.ContainsFunctions(this.name) ? this.Success(storage.GetFunction(this.name).ToString()) 
+                : this.Failure("Function with this name is missing");
         }
     }
 }

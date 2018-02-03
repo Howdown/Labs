@@ -2,7 +2,7 @@
 {
     using FunctionInTheConsole.Functions;
 
-    public class AddFunctionCommand : ICommand
+    public class AddFunctionCommand : CommandResultHelper
     {
         private readonly string nameFunction;
 
@@ -16,18 +16,13 @@
 
         public CommandResult Apply(FunctionsStorage storage)
         {
-            CommandResult resultMessage;
             if (storage.ContainsFunctions(this.nameFunction))
             {
-                resultMessage = new CommandResult(false, "Function with the same name already exists");
-            }
-            else
-            {
-                resultMessage = new CommandResult(true);
-                storage.AddFunction(this.nameFunction, this.function);
+                return this.Failure("Function with the same name already exists");
             }
 
-            return resultMessage;
+            storage.AddFunction(this.nameFunction, this.function);
+            return this.Success();
         }
     }
 }

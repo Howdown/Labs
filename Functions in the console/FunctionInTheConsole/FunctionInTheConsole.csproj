@@ -46,12 +46,12 @@
     <Compile Include="Builders\AddSinusFunctionBuilder.cs" />
     <Compile Include="Command\CommandResult.cs" />
     <Compile Include="Command\AddDerivativeCommand.cs" />
+    <Compile Include="Command\CommandResultHelper.cs" />
     <Compile Include="Command\PrintFunctionCommand.cs" />
     <Compile Include="Command\GetDerivativeFunctionCommand.cs" />
     <Compile Include="Command\DeleteFunctionCommand.cs" />
     <Compile Include="Command\CalculateFunctionCommand.cs" />
     <Compile Include="Command\AddFunctionCommand.cs" />
-    <Compile Include="Command\ICommand.cs" />
     <Compile Include="Builders\ICommandBuilder.cs" />
     <Compile Include="Builders\AddLinearFunctionBuilder.cs" />
     <Compile Include="Builders\CalculateFunctionBuilder.cs" />

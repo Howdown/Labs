@@ -1,6 +1,6 @@
 ﻿namespace FunctionInTheConsole.Command
 {
-    internal class GetDerivativeFunctionCommand : ICommand
+    internal class GetDerivativeFunctionCommand : CommandResultHelper
     {
         private readonly string name;
 
@@ -11,9 +11,8 @@
 
         public CommandResult Apply(FunctionsStorage storage)
         {
-            var resultMessage = storage.ContainsFunctions(this.name) ? new CommandResult(true, storage.GetDerivativeFunction(this.name).ToString())
-                : new CommandResult(false, "a function with this name is missing");
-            return resultMessage;
+            return storage.ContainsFunctions(this.name) ? this.Success(storage.GetDerivativeFunction(this.name).ToString())
+                : this.Failure("a function with this name is missing");
         }
     }
 }

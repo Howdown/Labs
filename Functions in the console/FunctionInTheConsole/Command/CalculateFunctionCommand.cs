@@ -1,6 +1,6 @@
 ﻿namespace FunctionInTheConsole.Command
 {
-    internal class CalculateFunctionCommand : ICommand
+    internal class CalculateFunctionCommand : CommandResultHelper
     {
         private readonly string name;
         private readonly double argument;
@@ -13,9 +13,8 @@
 
         public CommandResult Apply(FunctionsStorage storage)
         {
-            var resultMessage = storage.ContainsFunctions(this.name) ? new CommandResult(true, storage.CalculateFunction(this.name, this.argument).ToString()) 
+            return storage.ContainsFunctions(this.name) ? new CommandResult(true, storage.CalculateFunction(this.name, this.argument).ToString())
                 : new CommandResult(false, "Function with this name is missing");
-            return resultMessage;
         }
     }
 }
