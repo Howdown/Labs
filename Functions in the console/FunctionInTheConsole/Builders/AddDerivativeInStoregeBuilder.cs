@@ -2,7 +2,7 @@
 {
     using FunctionInTheConsole.Command;
 
-    public class AddDerivativeInStorage : ICommandBuilder
+    public class AddDerivativeInStorageBuilder : ICommandBuilder
     {
         public ICommand BuildCommand(string input)
         {

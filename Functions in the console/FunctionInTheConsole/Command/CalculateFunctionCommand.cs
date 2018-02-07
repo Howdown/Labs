@@ -11,7 +11,7 @@
             this.argument = argument;
         }
 
-        public CommandResult Apply(FunctionsStorage storage)
+        public override CommandResult Apply(FunctionsStorage storage)
         {
             return storage.ContainsFunctions(this.name) ? new CommandResult(true, storage.CalculateFunction(this.name, this.argument).ToString())
                 : new CommandResult(false, "Function with this name is missing");

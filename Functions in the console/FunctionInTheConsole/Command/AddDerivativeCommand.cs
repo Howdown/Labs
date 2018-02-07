@@ -12,7 +12,7 @@
             this.nameFunction = nameFunction;
         }
 
-        public CommandResult Apply(FunctionsStorage storage)
+        public override CommandResult Apply(FunctionsStorage storage)
         {
             if (!storage.ContainsFunctions(this.nameFunction))
             {

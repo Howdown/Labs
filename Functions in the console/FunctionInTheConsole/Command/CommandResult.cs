@@ -8,11 +8,6 @@
             this.Message = message;
         }
 
-        public CommandResult(bool identifier)
-        {
-            this.Identifier = identifier;
-        }
-
         public bool Identifier { get; }
 
         public string Message { get; }

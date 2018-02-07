@@ -5,7 +5,7 @@
         CommandResult Apply(FunctionsStorage storage);
     }
 
-    public class CommandResultHelper
+    public abstract class CommandResultHelper : ICommand
     {
         public CommandResult Success(string message = null)
         {
@@ -18,5 +18,7 @@
             var result = new CommandResult(false, message);
             return result;
         }
+
+        public abstract CommandResult Apply(FunctionsStorage storage);
     }
 }
