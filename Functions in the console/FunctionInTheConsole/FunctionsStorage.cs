@@ -4,7 +4,22 @@
 
     using FunctionInTheConsole.Functions;
 
-    public class FunctionsStorage
+    public interface IFunctionsStorage
+    {
+        void AddFunction(string name, FunctionBase viewFunction);
+
+        void DeleteFunction(string name);
+
+        double CalculateFunction(string name, double value);
+
+        FunctionBase GetDerivativeFunction(string name);
+
+        bool ContainsFunctions(string name);
+
+        FunctionBase GetFunction(string name);
+    }
+
+    public class FunctionsStorage : IFunctionsStorage
     {
         private Dictionary<string, FunctionBase> functions;
 

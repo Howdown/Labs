@@ -2,8 +2,8 @@
 {
     using System.Text.RegularExpressions;
 
-    using FunctionInTheConsole.Command;
-    using FunctionInTheConsole.Functions;
+    using Command;
+    using Functions;
 
     internal class AddSinusFunctionBuilder : ICommandBuilder
     {

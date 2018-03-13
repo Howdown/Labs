@@ -1,6 +1,6 @@
 ﻿namespace FunctionInTheConsole.Builders
 {
-    using FunctionInTheConsole.Command;
+    using Command;
 
     public class AddDerivativeInStorageBuilder : ICommandBuilder
     {

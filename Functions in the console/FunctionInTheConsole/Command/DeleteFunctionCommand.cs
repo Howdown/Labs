@@ -1,6 +1,6 @@
 ﻿namespace FunctionInTheConsole.Command
 {
-    internal class DeleteFunctionCommand : CommandResultHelper, ICommand
+    internal class DeleteFunctionCommand : CommandResultHelper
     {
         private readonly string name;
 
@@ -9,7 +9,7 @@
             this.name = name;
         }
 
-        public override CommandResult Apply(FunctionsStorage storage)
+        public override CommandResult InnerApply(IFunctionsStorage storage)
         {
             if (!storage.ContainsFunctions(this.name))
             {

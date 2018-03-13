@@ -12,7 +12,7 @@
             this.nameFunction = nameFunction;
         }
 
-        public override CommandResult Apply(FunctionsStorage storage)
+        public override CommandResult InnerApply(IFunctionsStorage storage)
         {
             if (!storage.ContainsFunctions(this.nameFunction))
             {
@@ -23,7 +23,6 @@
             {
                 return this.Failure("Function with the same name already exists");
             }
-
             var derivative = storage.GetDerivativeFunction(this.nameFunction);
             storage.AddFunction(this.nameDerivative, derivative);
             return this.Success();

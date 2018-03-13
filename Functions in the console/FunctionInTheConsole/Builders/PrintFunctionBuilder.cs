@@ -2,7 +2,7 @@
 {
     using System.Text.RegularExpressions;
 
-    using FunctionInTheConsole.Command;
+    using Command;
 
     internal class PrintFunctionBuilder : ICommandBuilder
     {

@@ -1,6 +1,8 @@
 ﻿namespace FunctionInTheConsole.Command
 {
-    internal class CalculateFunctionCommand : CommandResultHelper
+    using System.Globalization;
+
+    public class CalculateFunctionCommand : CommandResultHelper
     {
         private readonly string name;
         private readonly double argument;
@@ -11,9 +13,9 @@
             this.argument = argument;
         }
 
-        public override CommandResult Apply(FunctionsStorage storage)
+        public override CommandResult InnerApply(IFunctionsStorage storage)
         {
-            return storage.ContainsFunctions(this.name) ? new CommandResult(true, storage.CalculateFunction(this.name, this.argument).ToString())
+            return storage.ContainsFunctions(this.name) ? new CommandResult(true, storage.CalculateFunction(this.name, this.argument).ToString(CultureInfo.InvariantCulture))
                 : new CommandResult(false, "Function with this name is missing");
         }
     }

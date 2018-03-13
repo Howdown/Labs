@@ -1,8 +1,10 @@
 ﻿namespace FunctionInTheConsole.Command
 {
+    using System;
+
     public interface ICommand
     {
-        CommandResult Apply(FunctionsStorage storage);
+        CommandResult Apply(IFunctionsStorage storage);
     }
 
     public abstract class CommandResultHelper : ICommand
@@ -19,6 +21,18 @@
             return result;
         }
 
-        public abstract CommandResult Apply(FunctionsStorage storage);
+        public CommandResult Apply(IFunctionsStorage storage)
+        {
+            try
+            {
+                return InnerApply(storage);
+            }
+            catch (Exception e)
+            {
+                return Failure(e.Message + e.TargetSite);
+            }
+        }
+
+        public abstract CommandResult InnerApply(IFunctionsStorage storage);
     }
 }

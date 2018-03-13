@@ -50,5 +50,52 @@ namespace FunctionInTheConsoleTests
 
             Assert.AreEqual(storage.GetDerivativeFunction(name).ToString(), "2,1x");
         }
+
+        [Test]
+        public void Function_ContainsFunctions_ResultMustBeIsTrue()
+        {
+            var storage = new FunctionsStorage();
+
+            storage.AddFunction("Linear", new LinearFunction(2.3, 3));
+            var result = storage.ContainsFunctions("Linear");
+
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Function_ContainsFunctions_ResultMustBeIsFalse()
+        {
+            var storage = new FunctionsStorage();
+
+            storage.AddFunction("linear", new LinearFunction(2.3, 5));
+            var result = storage.ContainsFunctions("Linear");
+
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Function_GetFunction_ResultMustBeFunction()
+        {
+            var cos = new CosineFunction();
+            var storage = new FunctionsStorage();
+
+            storage.AddFunction("Cos", new CosineFunction());
+            var result = storage.GetFunction("Cos");
+
+            Assert.AreEqual(cos.ToString(), result.ToString());
+        }
+
+        [Test]
+        public void Function_DeleteFunction_ResultMustBeIsTrue()
+        {
+            var storage = new FunctionsStorage();
+
+            storage.AddFunction("Cos", new CosineFunction());
+            storage.DeleteFunction("Cos");
+            var result = storage.ContainsFunctions("Cos");
+
+            Assert.IsFalse(result);
+        }
+
     }
 }

@@ -1,8 +1,8 @@
 ﻿namespace FunctionInTheConsole.Builders
 {
-    using FunctionInTheConsole.Command;
+    using Command;
 
-    internal interface ICommandBuilder
+    public interface ICommandBuilder
     {
         ICommand BuildCommand(string input);
     }

@@ -1,6 +1,8 @@
 ﻿namespace FunctionInTheConsole.Command
 {
-    using FunctionInTheConsole.Functions;
+    using System;
+
+    using Functions;
 
     public class AddFunctionCommand : CommandResultHelper
     {
@@ -14,7 +16,7 @@
             this.function = function;
         }
 
-        public override CommandResult Apply(FunctionsStorage storage)
+        public override CommandResult InnerApply(IFunctionsStorage storage)
         {
             if (storage.ContainsFunctions(this.nameFunction))
             {

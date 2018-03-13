@@ -3,7 +3,7 @@
     using System;
     using System.Text.RegularExpressions;
 
-    using FunctionInTheConsole.Command;
+    using Command;
 
     internal class CalculateFunctionBuilder : ICommandBuilder
     {
